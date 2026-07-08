@@ -4,7 +4,7 @@ services:
       context: ../shopfloor-dryrun-genai-engine
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8000:8000"
     env_file:
       - ../shopfloor-dryrun-genai-engine/.env
     volumes:
@@ -17,7 +17,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - ENGINE_URL=http://engine:8080
+      - ENGINE_URL=http://engine:8000
       - RAILS_ENV=production
     depends_on:
       - engine

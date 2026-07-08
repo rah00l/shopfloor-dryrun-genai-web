@@ -1,6 +1,8 @@
 class ChatController < ApplicationController
   include ChatFormatterHelper
 
+  skip_before_action :verify_authenticity_token, only: [:analyze, :generate_sop]
+
   def index
     # Renders app/views/chat/index.html.erb
     # Layout automatically renders navbar and chat_widget

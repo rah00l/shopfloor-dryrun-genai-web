@@ -3,7 +3,7 @@
 
 ENGINE_CONFIG = {
   url: ENV['ENGINE_URL'] || 'http://engine:8080',
-  timeout: ENV['ENGINE_TIMEOUT'].to_i || 30,
+  timeout: (ENV['ENGINE_TIMEOUT'].presence || 30).to_i,
   max_retries: ENV['ENGINE_MAX_RETRIES'].to_i || 1
 }.freeze
 

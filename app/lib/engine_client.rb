@@ -3,7 +3,7 @@
 
 class EngineClient
   ENGINE_URL = ENV['ENGINE_URL'] || 'http://engine:8080'
-  TIMEOUT = ENV['ENGINE_TIMEOUT'].to_i || 30
+  TIMEOUT = (ENV['ENGINE_TIMEOUT'].presence || 30).to_i
 
   def self.analyze(question:, session_id: nil)
     raise ArgumentError, "Question cannot be empty" if question.blank?
