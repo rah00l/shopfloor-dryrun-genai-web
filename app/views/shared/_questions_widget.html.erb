@@ -1,0 +1,176 @@
+<!-- Questions Widget Partial - Reusable across all pages -->
+<!-- File: app/views/shared/_questions_widget.html.erb -->
+<!-- Used in: navbar (desktop), chat widget, mobile modal -->
+
+<details class="mb-0 sm:mb-4 md:mb-0 bg-blue-50 border-l-4 border-blue-500 rounded-lg shadow-sm"
+         style="padding: 12px; margin-bottom: 0;">
+  <summary style="cursor: pointer; font-weight: 600; font-size: 14px; color: #111827; user-select: none;">
+    ❓ Quick Questions for AI Assistant (Click to expand)
+  </summary>
+
+  <!-- TWO-COLUMN GRID LAYOUT - RESPONSIVE -->
+  <div style="margin-top: 12px; display: grid; grid-template-columns: 1fr; gap: 12px;" class="sm:grid-cols-2">
+
+    <!-- CATEGORY 1: Status Definitions -->
+    <details style="margin-top: 8px;">
+      <summary style="font-weight: 600; font-size: 14px; cursor: pointer;">
+        📋 Category 1: Status Definitions
+      </summary>
+      <div style="padding-left: 12px; margin-top: 8px; display: grid; grid-template-columns: 1fr; gap: 8px;" class="sm:grid-cols-2">
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What does NEW mean?</p>
+          <button onclick="copyToClipboard('What does NEW mean?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What does READY mean?</p>
+          <button onclick="copyToClipboard('What does READY mean?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What does PROCESSING mean?</p>
+          <button onclick="copyToClipboard('What does PROCESSING mean?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What does PARSED mean?</p>
+          <button onclick="copyToClipboard('What does PARSED mean?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What does FULL RECONCILED mean?</p>
+          <button onclick="copyToClipboard('What does FULL RECONCILED mean?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What does PARTIAL RECONCILED mean?</p>
+          <button onclick="copyToClipboard('What does PARTIAL RECONCILED mean?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+      </div>
+    </details>
+
+    <!-- CATEGORY 2: Mapping Error -->
+    <details style="margin-top: 8px;">
+      <summary style="font-weight: 600; font-size: 14px; cursor: pointer;">
+        📋 Category 2: Mapping Error
+      </summary>
+      <div style="padding-left: 12px; margin-top: 8px; display: grid; grid-template-columns: 1fr; gap: 8px;" class="sm:grid-cols-2">
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What does mapping error payment id not found mean?</p>
+          <button onclick="copyToClipboard('What does mapping error payment id not found mean?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">Will the system retry automatically?</p>
+          <button onclick="copyToClipboard('Will the system retry automatically?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">Can I ignore this and continue?</p>
+          <button onclick="copyToClipboard('Can I ignore this and continue?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+      </div>
+    </details>
+
+    <!-- CATEGORY 3: Follow-Up Chains -->
+    <details style="margin-top: 8px;">
+      <summary style="font-weight: 600; font-size: 14px; cursor: pointer;">
+        📋 Category 3: Follow-Up Chains
+      </summary>
+      <div style="padding-left: 12px; margin-top: 8px; display: grid; grid-template-columns: 1fr; gap: 8px;" class="sm:grid-cols-2">
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What does PARTIAL RECONCILED mean?</p>
+          <button onclick="copyToClipboard('What does PARTIAL RECONCILED mean?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">Is reconciliation complete?</p>
+          <button onclick="copyToClipboard('Is reconciliation complete?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">Who is responsible?</p>
+          <button onclick="copyToClipboard('Who is responsible?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What remains pending?</p>
+          <button onclick="copyToClipboard('What remains pending?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+      </div>
+    </details>
+
+    <!-- CATEGORY 5: Lifecycle Reasoning -->
+    <details style="margin-top: 8px;">
+      <summary style="font-weight: 600; font-size: 14px; cursor: pointer;">
+        📋 Category 5: Lifecycle Reasoning
+      </summary>
+      <div style="padding-left: 12px; margin-top: 8px; display: grid; grid-template-columns: 1fr; gap: 8px;" class="sm:grid-cols-2">
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What stage comes after NEW?</p>
+          <button onclick="copyToClipboard('What stage comes after NEW?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">What stage comes after READY?</p>
+          <button onclick="copyToClipboard('What stage comes after READY?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+        <div>
+          <p style="margin: 0; color: #111827; font-size: 12px; line-height: 1.4;">Is FULL RECONCILED a terminal state?</p>
+          <button onclick="copyToClipboard('Is FULL RECONCILED a terminal state?')"
+                  style="margin-top: 6px; padding: 4px 8px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+            Copy Question
+          </button>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+</details>
+
+<!-- Copy to Clipboard Function -->
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      // Optional: Show feedback
+      alert('Question copied: ' + text);
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+    });
+  }
+</script>

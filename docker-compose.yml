@@ -1,0 +1,23 @@
+services:
+  engine:
+    build:
+      context: ../shopfloor-dryrun-genai-engine
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../shopfloor-dryrun-genai-engine/.env
+    volumes:
+      - ../shopfloor-dryrun-genai-engine/chroma_db:/app/chroma_db
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - ENGINE_URL=http://engine:8080
+      - RAILS_ENV=production
+    depends_on:
+      - engine

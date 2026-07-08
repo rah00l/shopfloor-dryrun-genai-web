@@ -1,0 +1,582 @@
+<!-- AI Analyst Chat Widget -->
+<!-- File: app/views/shared/_chat_widget.html.erb -->
+
+<!-- Main Widget -->
+<div id="chat-widget" class="fixed bg-white rounded-lg shadow-2xl flex flex-col z-50 border border-gray-200">
+
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white flex justify-between items-center flex-shrink-0"
+       style="padding: clamp(12px, 3vw, 16px);">
+    <div class="flex-1 min-w-0">
+      <h3 class="font-bold truncate" style="font-size: clamp(14px, 4vw, 18px);">AI Analyst Assistant</h3>
+      <p class="text-blue-100 truncate" style="font-size: clamp(10px, 2.5vw, 12px);">Ask about reconciliation</p>
+    </div>
+    <div class="flex gap-1 flex-shrink-0 ml-2">
+      <button id="chat-questions-toggle"
+              class="text-white hover:text-blue-200 transition hover:bg-blue-500 px-2 py-1 rounded cursor-pointer"
+              style="font-size: clamp(16px, 4vw, 18px); min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center;"
+              title="Browse questions">
+        ❓
+      </button>
+      <button id="chat-minimize"
+              class="text-white hover:text-blue-200 transition hover:bg-blue-500 px-2 py-1 rounded cursor-pointer"
+              style="font-size: clamp(18px, 5vw, 20px); min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center;"
+              title="Minimize">
+        −
+      </button>
+      <button id="chat-close"
+              class="text-white hover:text-blue-200 transition hover:bg-blue-500 px-2 py-1 rounded cursor-pointer"
+              style="font-size: clamp(18px, 5vw, 20px); min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center;"
+              title="Close">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <!-- Questions Panel -->
+  <div id="chat-questions-panel" class="hidden flex-shrink-0 bg-blue-50 border-b border-blue-200 overflow-y-auto"
+       style="max-height: 55%; padding: clamp(10px, 2.5vw, 14px);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <p style="font-size: 13px; font-weight: 700; color: #1e40af; margin: 0;">❓ Quick Questions</p>
+      <button onclick="toggleQuestionsPanel()"
+              style="background: none; border: none; cursor: pointer; color: #6b7280; font-size: 16px; padding: 2px 6px; line-height: 1;"
+              title="Close questions">✕</button>
+    </div>
+    <p style="font-size: 11px; color: #6b7280; margin: 0 0 10px 0;">Click any question to paste it into the chat input.</p>
+
+    <details class="qw-category">
+      <summary>📋 Status Definitions</summary>
+      <div class="qw-grid">
+        <button class="qw-btn" onclick="pasteQuestion('What does NEW mean?')">What does NEW mean?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What does READY mean?')">What does READY mean?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What does PROCESSING mean?')">What does PROCESSING mean?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What does PARSED mean?')">What does PARSED mean?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What does FULL RECONCILED mean?')">What does FULL RECONCILED mean?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+      </div>
+    </details>
+
+    <details class="qw-category">
+      <summary>📋 Mapping Errors</summary>
+      <div class="qw-grid">
+        <button class="qw-btn" onclick="pasteQuestion('What does mapping error payment id not found mean?')">What does mapping error payment id not found mean?</button>
+        <button class="qw-btn" onclick="pasteQuestion('Will the system retry automatically?')">Will the system retry automatically?</button>
+        <button class="qw-btn" onclick="pasteQuestion('Can I ignore this and continue?')">Can I ignore this and continue?</button>
+      </div>
+    </details>
+
+    <details class="qw-category">
+      <summary>📋 Follow-Up Chains</summary>
+      <div class="qw-grid">
+        <button class="qw-btn" onclick="pasteQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+        <button class="qw-btn" onclick="pasteQuestion('Is reconciliation complete?')">Is reconciliation complete?</button>
+        <button class="qw-btn" onclick="pasteQuestion('Who is responsible?')">Who is responsible?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What remains pending?')">What remains pending?</button>
+      </div>
+    </details>
+
+    <details class="qw-category">
+      <summary>📋 Lifecycle Reasoning</summary>
+      <div class="qw-grid">
+        <button class="qw-btn" onclick="pasteQuestion('What stage comes after NEW?')">What stage comes after NEW?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What stage comes after READY?')">What stage comes after READY?</button>
+        <button class="qw-btn" onclick="pasteQuestion('Is FULL RECONCILED a terminal state?')">Is FULL RECONCILED a terminal state?</button>
+      </div>
+    </details>
+  </div>
+
+  <!-- Messages Container -->
+  <div id="chat-messages"
+       class="flex-1 overflow-y-auto bg-gray-50 space-y-2"
+       style="padding: clamp(12px, 3vw, 16px);">
+    <div class="flex justify-start">
+      <div class="bg-white text-gray-800 rounded-lg shadow-sm border border-gray-200"
+           style="padding: clamp(10px, 2.5vw, 12px); max-width: 85%;">
+        <p class="font-medium text-gray-700" style="font-size: clamp(12px, 3vw, 14px);">Welcome! 👋</p>
+        <p class="text-gray-600 mt-1" style="font-size: clamp(11px, 2.5vw, 12px); line-height: 1.4;">
+          I can help you understand reconciliation statuses, errors, settlements, and more.
+          Tap <strong>❓</strong> above to browse example questions, or type your own below.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading indicator -->
+  <div id="chat-loading" class="hidden px-4 py-2 text-center flex-shrink-0">
+    <div class="flex items-center justify-center gap-2">
+      <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+      <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+      <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+    </div>
+  </div>
+
+  <!-- Input Section -->
+  <div class="border-t bg-white flex-shrink-0"
+       style="padding: clamp(12px, 3vw, 16px); border-radius: 0 0 16px 16px;">
+    <form id="chat-form" class="flex gap-2">
+      <input
+        type="text"
+        id="chat-input"
+        placeholder="Type your question..."
+        class="flex-1 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+        style="font-size: clamp(13px, 3vw, 14px);"
+        autocomplete="off"
+      />
+      <button
+        type="submit"
+        id="chat-send"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-medium transition flex-shrink-0"
+        style="
+          padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px);
+          font-size: clamp(12px, 3vw, 14px);
+          border-radius: 6px;
+          min-height: 44px;
+          min-width: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <span class="hidden sm:inline">Send</span>
+        <span class="sm:hidden">→</span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Minimized Bubble -->
+<div id="chat-widget-minimized"
+     class="hidden fixed bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg shadow-2xl cursor-pointer hover:shadow-xl transition"
+     style="z-index: 9999;">
+  <div onclick="expandChat()" style="display: flex; flex-direction: column; gap: 4px; align-items: center; padding: clamp(10px, 2.5vw, 12px);">
+    <p style="font-size: clamp(18px, 5vw, 24px); margin: 0;">💬</p>
+    <p style="font-size: clamp(10px, 2.5vw, 11px); font-weight: 600; margin: 0; white-space: nowrap;">AI Asst</p>
+  </div>
+  <button id="chat-minimize-close"
+          class="absolute text-white hover:text-blue-100 transition"
+          style="top: 4px; right: 4px; font-size: 12px; cursor: pointer; background: none; border: none; padding: 2px 4px;"
+          onclick="event.stopPropagation(); closeChat()"
+          title="Close">✕</button>
+</div>
+
+<script>
+  // ============================================
+  // QUESTIONS PANEL
+  // ============================================
+
+  function toggleQuestionsPanel() {
+    const panel = document.getElementById('chat-questions-panel');
+    const isHidden = panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', !isHidden);
+    if (isHidden) {
+      const msgs = document.getElementById('chat-messages');
+      if (msgs) msgs.scrollTop = msgs.scrollHeight;
+    }
+  }
+
+  function pasteQuestion(text) {
+    const input = document.getElementById('chat-input');
+    if (input) {
+      input.value = text;
+      input.focus();
+      const panel = document.getElementById('chat-questions-panel');
+      if (panel) panel.classList.add('hidden');
+    }
+  }
+
+  // ============================================
+  // UTILITY FUNCTIONS
+  // ============================================
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function generateSessionId() {
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substr(2, 9);
+    return `session_${timestamp}_${random}`;
+  }
+
+  // ============================================
+  // UI CONTROL FUNCTIONS
+  // ============================================
+
+  function minimizeChat() {
+    const chatWidget = document.getElementById('chat-widget');
+    const chatMinimized = document.getElementById('chat-widget-minimized');
+    chatWidget.style.display = 'none';
+    chatMinimized.classList.remove('hidden');
+    chatMinimized.classList.remove('force-hidden');
+    chatMinimized.style.cssText = 'display:block !important; position:fixed !important; bottom:20px !important; right:20px !important; z-index:9999 !important;';
+  }
+
+  function expandChat() {
+    const chatWidget = document.getElementById('chat-widget');
+    const chatMinimized = document.getElementById('chat-widget-minimized');
+    chatMinimized.classList.add('hidden');
+    chatMinimized.classList.add('force-hidden');
+    chatMinimized.style.display = 'none';
+    chatWidget.style.display = 'flex';
+    const input = document.getElementById('chat-input');
+    if (input) input.focus();
+  }
+
+  function closeChat() {
+    const chatWidget = document.getElementById('chat-widget');
+    const chatMinimized = document.getElementById('chat-widget-minimized');
+    chatWidget.style.display = 'none';
+    chatMinimized.classList.add('hidden');
+    chatMinimized.style.display = 'none';
+  }
+
+  // ============================================
+  // INITIALIZATION
+  // ============================================
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatLoading = document.getElementById('chat-loading');
+    const chatMinimizeBtn = document.getElementById('chat-minimize');
+    const chatCloseBtn = document.getElementById('chat-close');
+    const chatQuestionsToggle = document.getElementById('chat-questions-toggle');
+    const chatWidget = document.getElementById('chat-widget');
+    const chatMinimized = document.getElementById('chat-widget-minimized');
+
+    let currentSessionId = null;
+
+    // ── Mobile auto-minimise ──────────────────────────────
+    // On screens < 640px: start as bubble, not open widget
+    if (window.innerWidth < 640) {
+      chatWidget.style.display = 'none';
+      chatMinimized.classList.remove('hidden');
+      chatMinimized.style.cssText = 'display:block !important; position:fixed !important; bottom:20px !important; right:20px !important; z-index:9999 !important;';
+    } else {
+      // Non-mobile: focus input as normal
+      if (chatInput) chatInput.focus();
+    }
+    // ─────────────────────────────────────────────────────
+
+    function getCsrfToken() {
+      const token = document.querySelector('meta[name="csrf-token"]')?.content;
+      if (!token) console.warn('CSRF token not found');
+      return token || '';
+    }
+
+    function getFileId() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const fileIdFromUrl = urlParams.get('file_id');
+      if (fileIdFromUrl) return fileIdFromUrl;
+      const fileIdFromAttr = document.querySelector('[data-file-id]')?.dataset.fileId;
+      if (fileIdFromAttr) return fileIdFromAttr;
+      const pathMatch = window.location.pathname.match(/\/payment_files\/(\d+)/);
+      return pathMatch ? pathMatch[1] : null;
+    }
+
+    function addMessage(text, sender, isHtml = false) {
+      if (!text) return;
+      const messageEl = document.createElement('div');
+      messageEl.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
+      const bubbleEl = document.createElement('div');
+      if (sender === 'user') {
+        bubbleEl.className = 'bg-blue-600 text-white rounded-lg shadow-sm';
+        bubbleEl.style.cssText = 'padding: clamp(8px, 2vw, 12px); max-width: 85%;';
+      } else {
+        bubbleEl.className = 'bg-white text-gray-800 rounded-lg shadow-sm border border-gray-200';
+        bubbleEl.style.cssText = 'padding: clamp(8px, 2vw, 12px); max-width: 85%;';
+      }
+      if (isHtml) {
+        bubbleEl.innerHTML = text;
+      } else {
+        bubbleEl.innerHTML = `<p style="font-size: clamp(12px, 3vw, 14px); margin: 0;">${escapeHtml(text)}</p>`;
+      }
+      messageEl.appendChild(bubbleEl);
+      chatMessages.appendChild(messageEl);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addFollowUpButtons(followUps) {
+      if (!followUps || followUps.length === 0) return;
+      const followUpEl = document.createElement('div');
+      followUpEl.style.cssText = 'padding: clamp(8px, 2vw, 12px);';
+      followUpEl.innerHTML = `<p style="font-size: clamp(11px, 2.5vw, 12px); font-weight: 500; color: #4b5563; margin: 0 0 8px 0;">💡 Try asking:</p>`;
+      followUps.forEach(followUp => {
+        const btn = document.createElement('button');
+        btn.className = 'block w-full text-left text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded transition';
+        btn.style.cssText = 'padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 10px); font-size: clamp(11px, 2.5vw, 12px); cursor: pointer; border: none; background: transparent; text-align: left;';
+        btn.textContent = followUp;
+        btn.type = 'button';
+        btn.onclick = (e) => {
+          e.preventDefault();
+          chatInput.value = followUp;
+          chatForm.dispatchEvent(new Event('submit'));
+        };
+        followUpEl.appendChild(btn);
+      });
+      chatMessages.appendChild(followUpEl);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const question = chatInput.value.trim();
+      if (!question) return;
+      if (!currentSessionId) currentSessionId = generateSessionId();
+      const fileId = getFileId();
+      addMessage(question, 'user', false);
+      chatInput.value = '';
+      chatInput.focus();
+      chatLoading.classList.remove('hidden');
+      try {
+        const payload = { question: question, session_id: currentSessionId };
+        if (fileId) payload.file_id = fileId;
+        const response = await fetch('/chat/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCsrfToken() },
+          body: JSON.stringify(payload)
+        });
+        chatLoading.classList.add('hidden');
+        if (!response.ok) {
+          addMessage('Server error. Please try again.', 'assistant', false);
+          return;
+        }
+        const data = await response.json();
+        if (!data) { addMessage('No response received. Please try again.', 'assistant', false); return; }
+        console.log('=== CHAT RESPONSE DEBUG ===');
+        console.log('Response status:', data.status);
+        console.log('Full response object:', data);
+        console.log('Has formatted_html:', !!data.formatted_html);
+        console.log('=== END DEBUG ===');
+        if (data.formatted_html && data.formatted_html.trim()) {
+          addMessage(data.formatted_html, 'assistant', true);
+        } else if (data.explanation && data.explanation.trim()) {
+          addMessage(data.explanation, 'assistant', false);
+        } else {
+          addMessage('No response content available.', 'assistant', false);
+        }
+        if (data.follow_ups && Array.isArray(data.follow_ups) && data.follow_ups.length > 0) {
+          addFollowUpButtons(data.follow_ups);
+        }
+        if (data.session_id) currentSessionId = data.session_id;
+      } catch (error) {
+        chatLoading.classList.add('hidden');
+        console.error('Chat error:', error);
+        addMessage(`Network error: ${error.message}`, 'assistant', false);
+      }
+    });
+
+    chatMinimizeBtn.addEventListener('click', minimizeChat);
+    chatCloseBtn.addEventListener('click', closeChat);
+    chatQuestionsToggle.addEventListener('click', toggleQuestionsPanel);
+  });
+</script>
+
+<style>
+  /* ============================================
+     MOBILE DEFAULT (< 640px)
+     Widget hidden, bubble visible — pure CSS
+     guarantees correct state before JS runs
+     ============================================ */
+
+  @media (max-width: 639px) {
+    #chat-widget {
+      display: none;
+    }
+    #chat-widget-minimized:not(.force-hidden) {
+      display: block !important;
+      position: fixed !important;
+      bottom: 20px !important;
+      right: 20px !important;
+      z-index: 9999 !important;
+    }
+    #chat-widget-minimized.force-hidden {
+      display: none !important;
+    }
+  }
+
+  /* ============================================
+     RESPONSIVE LAYOUT
+     Mobile  (< 640px):   Bottom sheet, 68vh
+     Tablet  (640-767px): Bottom sheet, 60vh
+     Tablet+ (768-1023px): Floating panel, bottom-right
+     Desktop (1024px+):   Fixed sidebar
+     ============================================ */
+
+  #chat-widget {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 68vh;
+    max-height: 68vh;
+    border-radius: 16px 16px 0 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  #chat-widget-minimized {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: auto;
+    z-index: 9999;
+  }
+
+  @media (min-width: 640px) {
+    #chat-widget {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 60vh;
+      max-height: 60vh;
+      border-radius: 16px 16px 0 0;
+      z-index: 50;
+    }
+    #chat-widget-minimized {
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    #chat-widget {
+      bottom: 16px;
+      right: 16px;
+      left: auto;
+      width: 380px;
+      height: 520px;
+      max-height: 520px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      z-index: 40;
+    }
+    #chat-widget-minimized {
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    #chat-widget {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      left: auto;
+      top: auto;
+      width: 452px;
+      height: 602px;
+      max-height: 602px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      z-index: 30;
+    }
+    #chat-widget-minimized {
+      bottom: 16px;
+      right: 16px;
+    }
+  }
+
+  /* ============================================
+     COMMON STYLES
+     ============================================ */
+
+  #chat-messages {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #chat-input:focus {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  body.chat-open {
+    overflow: hidden;
+  }
+
+  /* ============================================
+     QUESTIONS PANEL STYLES
+     ============================================ */
+
+  #chat-questions-panel {
+    border-bottom: 1px solid #bfdbfe;
+  }
+
+  .qw-category {
+    margin-bottom: 8px;
+    background: white;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .qw-category summary {
+    font-weight: 600;
+    font-size: clamp(11px, 2.5vw, 13px);
+    cursor: pointer;
+    padding: 8px 10px;
+    color: #1e40af;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .qw-category summary::-webkit-details-marker { display: none; }
+
+  .qw-category[open] summary {
+    border-bottom: 1px solid #dbeafe;
+    background: #eff6ff;
+  }
+
+  .qw-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 8px 10px;
+  }
+
+  @media (min-width: 768px) {
+    .qw-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .qw-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #f8fafc;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: clamp(11px, 2.5vw, 12px);
+    padding: 6px 10px;
+    transition: background 0.15s, border-color 0.15s;
+    line-height: 1.4;
+  }
+
+  .qw-btn:hover {
+    background: #dbeafe;
+    border-color: #93c5fd;
+  }
+
+  .qw-btn:active {
+    background: #bfdbfe;
+  }
+</style>

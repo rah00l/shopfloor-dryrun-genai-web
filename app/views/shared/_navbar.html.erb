@@ -1,0 +1,562 @@
+<!-- RESPONSIVE NAVBAR -->
+<!-- Works at: Mobile (320px), Tablet (640px), Desktop (1024px+) -->
+
+<nav id="rp-navbar" style="width: 100%; background: linear-gradient(110deg, #1245a8 0%, #1a3baa 40%, #2d259e 75%, #3b1fa0 100%); color: #ffffff; position: relative; overflow: hidden; border-bottom: 4px solid #3b82f6; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+  <!-- Decorative background blobs -->
+  <span aria-hidden="true" style="position:absolute;right:-40px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(74,222,188,0.18) 0%,rgba(74,222,188,0) 70%);pointer-events:none;"></span>
+  <span aria-hidden="true" style="position:absolute;left:33%;top:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.07) 0%,rgba(255,255,255,0) 70%);pointer-events:none;"></span>
+  <span aria-hidden="true" style="position:absolute;right:220px;top:10px;width:8px;height:8px;border-radius:2px;background:rgba(74,222,188,0.4);transform:rotate(30deg);pointer-events:none;"></span>
+  <span aria-hidden="true" style="position:absolute;right:280px;bottom:12px;width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.25);pointer-events:none;"></span>
+
+  <div id="rp-nav-inner" style="background: transparent; width: 100%; padding: 14px 16px; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+
+      <!-- LEFT: Banner Branding — links to home -->
+      <a href="/" id="rp-brand-link" style="display: flex; align-items: center; text-decoration: none; flex-shrink: 0; min-width: 0; opacity: 1; transition: opacity 0.2s;"
+         onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+        <span id="rp-accent-bar" aria-hidden="true" style="width: 3px; height: 48px; border-radius: 2px; background: #2dd4bf; margin-right: 10px; flex-shrink: 0; display: block;"></span>
+        <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0;">
+          <span id="rp-eyebrow" style="font-size: 10px; font-weight: 600; letter-spacing: 3px; color: #67e8f9; text-transform: uppercase; line-height: 1;">AI Payment Platform</span>
+          <span id="rp-title" style="font-size: 22px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px; line-height: 1.15;">ReconPilot AI</span>
+          <span id="rp-tagline" style="font-size: 10px; color: #bfdbfe; font-weight: 400; line-height: 1; margin-top: 1px; white-space: nowrap;">Smart · Cloud-native · Real-time</span>
+        </div>
+      </a>
+
+      <!-- RIGHT: Icons -->
+      <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+
+        <!-- User Avatar -->
+        <div id="rp-icon-user"
+          style="width: 36px; height: 36px; border-radius: 50%; cursor: pointer; transition: transform 0.2s; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%); flex-shrink: 0;"
+          onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"
+          title="Profile" aria-label="User Profile">👤</div>
+
+        <!-- Quick Questions -->
+        <button id="nav-questions-btn"
+          style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: none; background: transparent; cursor: pointer; color: #fca5a5; font-size: 20px; transition: all 0.2s; flex-shrink: 0;"
+          onmouseover="this.style.color='#ffffff'; this.style.backgroundColor='rgba(255,255,255,0.15)';"
+          onmouseout="this.style.color='#fca5a5'; this.style.backgroundColor='transparent';"
+          onclick="window.location.href='/ReconPilot_RAG_Smoke_Test.xlsx'"
+          title="Quick Questions for AI Assistant" aria-label="Quick Questions">❓</button>
+
+        <!-- Guide -->
+        <button id="nav-guide-btn"
+          style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: none; background: transparent; cursor: pointer; color: #93c5fd; font-size: 20px; transition: all 0.2s; flex-shrink: 0;"
+          onmouseover="this.style.color='#ffffff'; this.style.backgroundColor='rgba(255,255,255,0.15)';"
+          onmouseout="this.style.color='#93c5fd'; this.style.backgroundColor='transparent';"
+          onclick="toggleGuideModal()"
+          title="Payment Reconciliation Guide" aria-label="Payment Reconciliation Guide">ℹ️</button>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Navbar responsive scaling — pure CSS media queries, no Tailwind dependency */
+  @media (min-width: 1024px) {
+    #rp-nav-inner      { padding: 32px 40px !important; }
+    #rp-accent-bar     { width: 4px !important; height: 84px !important; margin-right: 16px !important; }
+    #rp-eyebrow        { font-size: 12px !important; letter-spacing: 4px !important; }
+    #rp-title          { font-size: 36px !important; }
+    #rp-tagline        { font-size: 13px !important; }
+    #rp-icon-user      { width: 48px !important; height: 48px !important; font-size: 22px !important; }
+    #nav-questions-btn { width: 48px !important; height: 48px !important; font-size: 26px !important; }
+    #nav-guide-btn     { width: 48px !important; height: 48px !important; font-size: 26px !important; }
+  }
+  @media (min-width: 640px) and (max-width: 1023px) {
+    #rp-nav-inner      { padding: 20px 24px !important; }
+    #rp-accent-bar     { width: 3px !important; height: 62px !important; margin-right: 14px !important; }
+    #rp-eyebrow        { font-size: 11px !important; }
+    #rp-title          { font-size: 28px !important; }
+    #rp-tagline        { font-size: 11px !important; }
+    #rp-icon-user      { width: 42px !important; height: 42px !important; font-size: 18px !important; }
+    #nav-questions-btn { width: 42px !important; height: 42px !important; font-size: 22px !important; }
+    #nav-guide-btn     { width: 42px !important; height: 42px !important; font-size: 22px !important; }
+  }
+</style>
+
+
+<!-- Horizontal Color Bar -->
+<div class="w-full h-1 sm:h-2 shadow-md" style="background: linear-gradient(to right, #2563eb, #3b82f6, #1e40af);"></div>
+
+<!-- DESKTOP QUESTIONS DROPDOWN — 2-column, no horizontal scroll -->
+<div
+  id="nav-questions-dropdown"
+  class="hidden w-full bg-white border-b border-blue-100 shadow-md"
+  style="position: relative; z-index: 39;">
+  <div class="max-w-3xl mx-auto px-6 py-5">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+      <p style="font-size: 14px; font-weight: 700; color: #1e40af; margin: 0;">❓ Quick Questions for AI Assistant</p>
+      <button onclick="toggleNavQuestions()"
+              style="background: none; border: none; cursor: pointer; color: #6b7280; font-size: 18px; padding: 2px 8px;"
+              title="Close">✕</button>
+    </div>
+    <p style="font-size: 12px; color: #6b7280; margin: 0 0 14px 0;">Click any question to paste it into the AI chat.</p>
+
+    <!-- 2-column grid — fits all desktop widths without scrolling -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+
+      <details class="nq-category">
+        <summary class="nq-summary">📋 Status Definitions</summary>
+        <div class="nq-questions">
+          <button class="nq-btn" onclick="openChatWithQuestion('What does NEW mean?')">What does NEW mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does READY mean?')">What does READY mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does PROCESSING mean?')">What does PROCESSING mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does PARSED mean?')">What does PARSED mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does FULL RECONCILED mean?')">What does FULL RECONCILED mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+        </div>
+      </details>
+
+      <details class="nq-category">
+        <summary class="nq-summary">📋 Mapping Errors</summary>
+        <div class="nq-questions">
+          <button class="nq-btn" onclick="openChatWithQuestion('What does mapping error payment id not found mean?')">What does mapping error payment id not found mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Will the system retry automatically?')">Will the system retry automatically?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Can I ignore this and continue?')">Can I ignore this and continue?</button>
+        </div>
+      </details>
+
+      <details class="nq-category">
+        <summary class="nq-summary">📋 Follow-Up Chains</summary>
+        <div class="nq-questions">
+          <button class="nq-btn" onclick="openChatWithQuestion('Is reconciliation complete?')">Is reconciliation complete?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Who is responsible?')">Who is responsible?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What remains pending?')">What remains pending?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+        </div>
+      </details>
+
+      <details class="nq-category">
+        <summary class="nq-summary">📋 Lifecycle Reasoning</summary>
+        <div class="nq-questions">
+          <button class="nq-btn" onclick="openChatWithQuestion('What stage comes after NEW?')">What stage comes after NEW?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What stage comes after READY?')">What stage comes after READY?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Is FULL RECONCILED a terminal state?')">Is FULL RECONCILED a terminal state?</button>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE QUESTIONS MODAL — full-width bottom sheet, stacked categories -->
+<div
+  id="mobile-questions-modal"
+  class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-end"
+  style="z-index: 9998;"
+  onclick="if(event.target === this) toggleMobileQuestions()">
+
+  <div class="w-full bg-white rounded-t-2xl shadow-2xl overflow-y-auto" style="max-height: 85vh;">
+
+    <div class="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-4 flex items-center justify-between rounded-t-2xl">
+      <p style="font-size: 15px; font-weight: 700; color: white; margin: 0;">❓ Quick Questions</p>
+      <button onclick="toggleMobileQuestions()"
+              style="background: none; border: none; cursor: pointer; color: white; font-size: 20px; padding: 2px 6px;">✕</button>
+    </div>
+
+    <div style="padding: 14px;">
+      <p style="font-size: 12px; color: #6b7280; margin: 0 0 12px 0;">Tap any question to open the AI chat with it ready to send.</p>
+
+      <!-- Single column stacked — fits all mobile widths -->
+      <details class="nq-category">
+        <summary class="nq-summary">📋 Status Definitions</summary>
+        <div class="nq-questions">
+          <button class="nq-btn" onclick="openChatWithQuestion('What does NEW mean?')">What does NEW mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does READY mean?')">What does READY mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does PROCESSING mean?')">What does PROCESSING mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does PARSED mean?')">What does PARSED mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does FULL RECONCILED mean?')">What does FULL RECONCILED mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+        </div>
+      </details>
+
+      <details class="nq-category">
+        <summary class="nq-summary">📋 Mapping Errors</summary>
+        <div class="nq-questions">
+          <button class="nq-btn" onclick="openChatWithQuestion('What does mapping error payment id not found mean?')">What does mapping error payment id not found mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Will the system retry automatically?')">Will the system retry automatically?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Can I ignore this and continue?')">Can I ignore this and continue?</button>
+        </div>
+      </details>
+
+      <details class="nq-category">
+        <summary class="nq-summary">📋 Follow-Up Chains</summary>
+        <div class="nq-questions">
+          <button class="nq-btn" onclick="openChatWithQuestion('Is reconciliation complete?')">Is reconciliation complete?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Who is responsible?')">Who is responsible?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What remains pending?')">What remains pending?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+        </div>
+      </details>
+
+      <details class="nq-category">
+        <summary class="nq-summary">📋 Lifecycle Reasoning</summary>
+        <div class="nq-questions">
+          <button class="nq-btn" onclick="openChatWithQuestion('What stage comes after NEW?')">What stage comes after NEW?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What stage comes after READY?')">What stage comes after READY?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Is FULL RECONCILED a terminal state?')">Is FULL RECONCILED a terminal state?</button>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT RECONCILIATION GUIDE MODAL — clean card design, responsive -->
+<div
+  id="guide-modal"
+  class="fixed inset-0 hidden items-center justify-center"
+  style="z-index: 9999; background: rgba(15, 23, 42, 0.12); backdrop-filter: blur(3px);"
+  onclick="if(event.target === this) toggleGuideModal()">
+
+  <div style="
+    width: calc(100vw - 24px);
+    max-width: 620px;
+    max-height: 88vh;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06);
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    border: 1px solid #e5e7eb;
+  ">
+
+    <!-- Header — clean white with blue left accent -->
+    <div style="
+      padding: 18px 20px 14px 20px;
+      border-bottom: 1px solid #f3f4f6;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      border-radius: 16px 16px 0 0;
+      z-index: 1;
+    ">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 4px; height: 36px; background: #2563eb; border-radius: 4px; flex-shrink: 0;"></div>
+        <div>
+          <p style="font-size: 15px; font-weight: 700; color: #111827; margin: 0; line-height: 1.3;">Payment Reconciliation Guide</p>
+          <p style="font-size: 11px; color: #6b7280; margin: 0; margin-top: 2px;">How the reconciliation process works</p>
+        </div>
+      </div>
+      <button onclick="toggleGuideModal()" style="
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        cursor: pointer;
+        color: #6b7280;
+        font-size: 14px;
+        padding: 4px 9px;
+        border-radius: 6px;
+        line-height: 1.4;
+        flex-shrink: 0;
+        margin-left: 10px;
+      " title="Close">✕</button>
+    </div>
+
+    <!-- Body -->
+    <div style="padding: 16px 20px 20px 20px; overflow-x: hidden; box-sizing: border-box;">
+
+      <!-- Overview -->
+      <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px 0;">Overview</p>
+      <p style="font-size: 12px; color: #374151; line-height: 1.6; margin: 0 0 20px 0; padding: 10px 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #e5e7eb;">
+        The system processes uploaded payment files through a multi-stage pipeline — from initial validation through to full reconciliation against your affiliate network records.
+      </p>
+
+      <!-- Divider -->
+      <div style="border-top: 1px solid #f3f4f6; margin-bottom: 16px;"></div>
+
+      <!-- Status Lifecycle -->
+      <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px 0;">Status Lifecycle</p>
+      <div style="display: flex; flex-direction: column; gap: 1px; margin-bottom: 20px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
+
+        <div class="guide-row">
+          <span class="guide-pill" style="background:#eff6ff; color:#1e40af; border-color:#bfdbfe;">New</span>
+          <span class="guide-row-text">File uploaded and queued — awaiting validation.</span>
+        </div>
+        <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
+          <span class="guide-pill" style="background:#eff6ff; color:#1e40af; border-color:#bfdbfe;">Ready</span>
+          <span class="guide-row-text">Validated and ready to be parsed by the engine.</span>
+        </div>
+        <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
+          <span class="guide-pill" style="background:#fefce8; color:#854d0e; border-color:#fde68a;">Processing</span>
+          <span class="guide-row-text">Currently being parsed and matched against records.</span>
+        </div>
+        <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
+          <span class="guide-pill" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">Parsed</span>
+          <span class="guide-row-text">Parsed successfully — data extracted and viewable.</span>
+        </div>
+        <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
+          <span class="guide-pill" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">Partial Reconciled</span>
+          <span class="guide-row-text">Some payments matched — remaining records need review.</span>
+        </div>
+        <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
+          <span class="guide-pill" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">Full Reconciled</span>
+          <span class="guide-row-text">All payments matched — reconciliation complete.</span>
+        </div>
+
+      </div>
+
+      <!-- Divider -->
+      <div style="border-top: 1px solid #f3f4f6; margin-bottom: 16px;"></div>
+
+      <!-- Available Actions -->
+      <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px 0;">Available Actions</p>
+      <div style="display: flex; flex-direction: column; gap: 1px; margin-bottom: 20px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
+
+        <div class="guide-row">
+          <span class="guide-dot" style="background:#16a34a;"></span>
+          <span class="guide-action-label" style="color:#166534;">Parse</span>
+          <span class="guide-row-text">Triggers parsing for NEW or READY files.</span>
+        </div>
+        <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
+          <span class="guide-dot" style="background:#16a34a;"></span>
+          <span class="guide-action-label" style="color:#166534;">Display</span>
+          <span class="guide-row-text">View data for PARSED or PARTIAL RECONCILED files.</span>
+        </div>
+        <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
+          <span class="guide-dot" style="background:#2563eb;"></span>
+          <span class="guide-action-label" style="color:#1e40af;">Summary</span>
+          <span class="guide-row-text">View reconciliation summary for FULL RECONCILED files.</span>
+        </div>
+        <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
+          <span class="guide-dot" style="background:#dc2626;"></span>
+          <span class="guide-action-label" style="color:#991b1b;">Remove</span>
+          <span class="guide-row-text">Delete the file record. Not available during PROCESSING.</span>
+        </div>
+
+      </div>
+
+      <!-- Divider -->
+      <div style="border-top: 1px solid #f3f4f6; margin-bottom: 16px;"></div>
+
+      <!-- Mapping Errors -->
+      <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px 0;">Mapping Errors</p>
+      <p style="font-size: 12px; color: #374151; line-height: 1.6; margin: 0; padding: 10px 12px; background: #fffbeb; border-radius: 8px; border: 1px solid #fde68a;">
+        If a payment ID cannot be matched to a network record, a mapping error is raised.
+        Check that the affiliate network ID in the file matches your registered records.
+        The system does not retry automatically — re-upload the corrected file to reprocess.
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Desktop ❓ dropdown ─────────────────────────────────
+  // ── Guide modal ────────────────────────────────────
+  function toggleGuideModal() {
+    const modal = document.getElementById('guide-modal');
+    if (modal.classList.contains('hidden')) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    } else {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  // ── Desktop ❓ dropdown ─────────────────────────────────
+  function toggleNavQuestions() {
+    const dropdown = document.getElementById('nav-questions-dropdown');
+    const isHidden = dropdown.classList.contains('hidden');
+    dropdown.classList.toggle('hidden', !isHidden);
+  }
+
+  // Paste question into chat input, open widget if needed, close panels
+  function openChatWithQuestion(text) {
+    // Close desktop dropdown
+    const dropdown = document.getElementById('nav-questions-dropdown');
+    if (dropdown) dropdown.classList.add('hidden');
+
+    // Close mobile modal
+    const modal = document.getElementById('mobile-questions-modal');
+    if (modal && !modal.classList.contains('hidden')) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Ensure chat widget is visible
+    const chatWidget = document.getElementById('chat-widget');
+    const chatMinimized = document.getElementById('chat-widget-minimized');
+    if (chatWidget && (chatWidget.style.display === 'none' || chatWidget.style.display === '')) {
+      if (chatMinimized) chatMinimized.style.display = 'none';
+      chatWidget.style.display = 'flex';
+    }
+
+    // Paste into input and focus
+    const input = document.getElementById('chat-input');
+    if (input) {
+      input.value = text;
+      input.focus();
+    }
+  }
+
+  // ── Mobile FAB modal ───────────────────────────────────
+  function toggleMobileQuestions() {
+    const modal = document.getElementById('mobile-questions-modal');
+    if (modal.classList.contains('hidden')) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    } else {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  // Escape key closes both
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const dropdown = document.getElementById('nav-questions-dropdown');
+      if (dropdown && !dropdown.classList.contains('hidden')) toggleNavQuestions();
+      const modal = document.getElementById('mobile-questions-modal');
+      if (modal && !modal.classList.contains('hidden')) toggleMobileQuestions();
+      const guideModal = document.getElementById('guide-modal');
+      if (guideModal && !guideModal.classList.contains('hidden')) toggleGuideModal();
+    }
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    const dropdown = document.getElementById('nav-questions-dropdown');
+    const btn = document.getElementById('nav-questions-btn');
+    if (dropdown && !dropdown.classList.contains('hidden')) {
+      if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
+        dropdown.classList.add('hidden');
+      }
+    }
+  });
+</script>
+
+<style>
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.7; }
+  }
+  .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+  nav img { transition: filter 0.3s ease; }
+  nav:hover img { filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15)); }
+
+  /* ── Collapsible category — matches chat widget .qw-category ── */
+  details.nq-category {
+    margin-bottom: 8px;
+    background: white;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .nq-summary {
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 9px 12px;
+    color: #1e40af;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .nq-summary::-webkit-details-marker { display: none; }
+
+  details.nq-category[open] .nq-summary {
+    border-bottom: 1px solid #dbeafe;
+    background: #eff6ff;
+  }
+
+  .nq-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 10px;
+  }
+
+  /* ── Question chip — matches chat widget .qw-btn ── */
+  .nq-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #f8fafc;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 6px 10px;
+    transition: background 0.15s, border-color 0.15s;
+    line-height: 1.4;
+  }
+  .nq-btn:hover  { background: #dbeafe; border-color: #93c5fd; }
+  .nq-btn:active { background: #bfdbfe; transform: scale(0.99); }
+
+  /* ── Mobile modal slide-up ── */
+  @media (max-width: 767px) {
+    #mobile-questions-modal.flex > div {
+      animation: slideUp 0.3s ease-out;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to   { transform: translateY(0); }
+    }
+  }
+
+  /* ── Guide modal — clean card rows ── */
+  .guide-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #ffffff;
+  }
+  .guide-row:hover { background: #f9fafb; }
+
+  .guide-pill {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    border: 1px solid;
+    white-space: nowrap;
+    min-width: 70px;
+    text-align: center;
+  }
+
+  .guide-dot {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .guide-action-label {
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 58px;
+  }
+
+  .guide-row-text {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 400px) {
+    .guide-row { padding: 8px 10px; gap: 8px; }
+    .guide-pill { font-size: 10px; min-width: 58px; }
+    .guide-row-text { font-size: 11px; }
+  }
+</style>

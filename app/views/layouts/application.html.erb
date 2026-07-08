@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= "ShopFloor GenAI Assistant" || "App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <!-- Branding & Icons -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Stylesheets -->
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "globals", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+
+  <body class="bg-white text-gray-900">
+    <!-- Navigation -->
+    <%= render 'shared/navbar' %>
+
+    <!-- Main Content Area -->
+    <main class="min-h-screen bg-gray-50">
+      <div class="w-full md:container md:mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-6">
+        <%= yield %>
+      </div>
+    </main>
+
+    <!-- AI Chat Widget — rendered ONCE, handles all breakpoints internally -->
+    <%= render 'shared/chat_widget' %>
+
+    <!-- Footer -->
+    <footer class="w-full bg-gray-50 border-t border-gray-200 mt-12 py-6">
+      <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
+        <p class="text-xs sm:text-sm text-gray-600">© 2026 ShopFloor GenAI Assistant — Manufacturing Knowledge Platform</p>
+      </div>
+    </footer>
+  </body>
+</html>
