@@ -200,6 +200,62 @@
   }
 
   // ============================================
+  // REFERENCE CARDS — doc type, section, match strength
+  // ============================================
+
+  function docTypeInfo(filename) {
+    const prefix = filename.split('-')[0].replace(/^\d+/, '');
+    const map = {
+      SOP: { icon: '📋', label: 'Procedure', color: '#1e40af', bg: '#eff6ff' },
+      WI:  { icon: '📐', label: 'Work Instruction', color: '#1e40af', bg: '#eff6ff' },
+      MM:  { icon: '🔧', label: 'Maintenance', color: '#854d0e', bg: '#fefce8' },
+      QA:  { icon: '⚠️', label: 'Quality Alert', color: '#166534', bg: '#f0fdf4' },
+      ECN: { icon: '📝', label: 'Change Notice', color: '#166534', bg: '#f0fdf4' },
+      RCA: { icon: '🔍', label: 'Root Cause', color: '#166534', bg: '#f0fdf4' }
+    };
+    return map[prefix] || { icon: '📄', label: 'Document', color: '#374151', bg: '#f3f4f6' };
+  }
+
+  function matchStrength(distance) {
+    const pct = Math.max(0, Math.min(100, Math.round((1 - distance / 0.7) * 100)));
+    const label = pct >= 65 ? 'Strong match' : 'Good match';
+    return { pct: pct, label: label };
+  }
+
+  function renderAnswerWithReferences(data) {
+    const hasSources = data.sources && data.sources.length > 0;
+
+    const badge = hasSources
+      ? '<div style="display:inline-block;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;font-size:10px;font-weight:600;padding:2px 8px;border-radius:12px;margin-bottom:8px;">✓ Cited from ' + data.sources.length + ' source' + (data.sources.length > 1 ? 's' : '') + '</div>'
+      : '<div style="display:inline-block;background:#fffbeb;color:#92400e;border:1px solid #fde68a;font-size:10px;font-weight:600;padding:2px 8px;border-radius:12px;margin-bottom:8px;">⚠ Not found in knowledge base</div>';
+
+    const answerText = escapeHtml(data.explanation || '');
+
+    let refsHtml = '';
+    if (hasSources) {
+      const cards = data.sources.map(function(src) {
+        const info = docTypeInfo(src.document);
+        const match = matchStrength(src.distance);
+        return '<div style="display:flex;align-items:center;gap:8px;background:' + info.bg + ';border:1px solid ' + info.color + '22;border-radius:8px;padding:6px 10px;margin-top:6px;">' +
+          '<span style="font-size:14px;">' + info.icon + '</span>' +
+          '<div style="flex:1;min-width:0;">' +
+            '<div style="font-size:11px;font-weight:600;color:' + info.color + ';">' + info.label + ' &middot; ' + escapeHtml(src.document) + '</div>' +
+            '<div style="font-size:10.5px;color:#6b7280;">' + escapeHtml(src.section) + '</div>' +
+          '</div>' +
+          '<div style="font-size:9.5px;font-weight:600;color:' + info.color + ';white-space:nowrap;">' + match.label + '</div>' +
+        '</div>';
+      }).join('');
+
+      refsHtml = '<details style="margin-top:8px;">' +
+        '<summary style="font-size:10.5px;font-weight:600;color:#6b7280;cursor:pointer;">📎 View sources (' + data.sources.length + ')</summary>' +
+        cards +
+      '</details>';
+    }
+
+    return badge + '<div style="font-size:13px;line-height:1.5;">' + answerText + '</div>' + refsHtml;
+  }
+
+  // ============================================
   // UI CONTROL FUNCTIONS
   // ============================================
 
@@ -298,28 +354,6 @@
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    function addFollowUpButtons(followUps) {
-      if (!followUps || followUps.length === 0) return;
-      const followUpEl = document.createElement('div');
-      followUpEl.style.cssText = 'padding: clamp(8px, 2vw, 12px);';
-      followUpEl.innerHTML = `<p style="font-size: clamp(11px, 2.5vw, 12px); font-weight: 500; color: #4b5563; margin: 0 0 8px 0;">💡 Try asking:</p>`;
-      followUps.forEach(followUp => {
-        const btn = document.createElement('button');
-        btn.className = 'block w-full text-left text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded transition';
-        btn.style.cssText = 'padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 10px); font-size: clamp(11px, 2.5vw, 12px); cursor: pointer; border: none; background: transparent; text-align: left;';
-        btn.textContent = followUp;
-        btn.type = 'button';
-        btn.onclick = (e) => {
-          e.preventDefault();
-          chatInput.value = followUp;
-          chatForm.dispatchEvent(new Event('submit'));
-        };
-        followUpEl.appendChild(btn);
-      });
-      chatMessages.appendChild(followUpEl);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
     chatForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const question = chatInput.value.trim();
@@ -345,16 +379,10 @@
         }
         const data = await response.json();
         if (!data) { addMessage('No response received. Please try again.', 'assistant', false); return; }
-        if (data.formatted_html && data.formatted_html.trim()) {
-          addMessage(data.formatted_html, 'assistant', true);
-        } else if (data.explanation && data.explanation.trim()) {
-          addMessage(data.explanation, 'assistant', false);
-        } else {
-          addMessage('No response content available.', 'assistant', false);
-        }
-        if (data.follow_ups && Array.isArray(data.follow_ups) && data.follow_ups.length > 0) {
-          addFollowUpButtons(data.follow_ups);
-        }
+
+        const answerHtml = renderAnswerWithReferences(data);
+        addMessage(answerHtml, 'assistant', true);
+
         if (data.session_id) currentSessionId = data.session_id;
       } catch (error) {
         chatLoading.classList.add('hidden');
