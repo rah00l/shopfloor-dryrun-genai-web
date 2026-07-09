@@ -9,7 +9,7 @@
        style="padding: clamp(12px, 3vw, 16px);">
     <div class="flex-1 min-w-0">
       <h3 class="font-bold truncate" style="font-size: clamp(14px, 4vw, 18px);">AI Analyst Assistant</h3>
-      <p class="text-blue-100 truncate" style="font-size: clamp(10px, 2.5vw, 12px);">Ask about reconciliation</p>
+      <p class="text-blue-100 truncate" style="font-size: clamp(10px, 2.5vw, 12px);">Ask about shop floor procedures</p>
     </div>
     <div class="flex gap-1 flex-shrink-0 ml-2">
       <button id="chat-questions-toggle"
@@ -45,42 +45,41 @@
     <p style="font-size: 11px; color: #6b7280; margin: 0 0 10px 0;">Click any question to paste it into the chat input.</p>
 
     <details class="qw-category">
-      <summary>📋 Status Definitions</summary>
+      <summary>📋 Specs &amp; Procedures</summary>
       <div class="qw-grid">
-        <button class="qw-btn" onclick="pasteQuestion('What does NEW mean?')">What does NEW mean?</button>
-        <button class="qw-btn" onclick="pasteQuestion('What does READY mean?')">What does READY mean?</button>
-        <button class="qw-btn" onclick="pasteQuestion('What does PROCESSING mean?')">What does PROCESSING mean?</button>
-        <button class="qw-btn" onclick="pasteQuestion('What does PARSED mean?')">What does PARSED mean?</button>
-        <button class="qw-btn" onclick="pasteQuestion('What does FULL RECONCILED mean?')">What does FULL RECONCILED mean?</button>
-        <button class="qw-btn" onclick="pasteQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What is the torque spec for the door hinge bracket?')">What is the torque spec for the door hinge bracket?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What are the steps to install the door hinge bracket?')">What are the steps to install the door hinge bracket?</button>
+        <button class="qw-btn" onclick="pasteQuestion('How often should the Station 4 fixture be recalibrated?')">How often should the Station 4 fixture be recalibrated?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What tools are needed for the tensioner inspection?')">What tools are needed for the tensioner inspection?</button>
+        <button class="qw-btn" onclick="pasteQuestion('How much belt deflection is acceptable during tensioner inspection?')">How much belt deflection is acceptable during tensioner inspection?</button>
+        <button class="qw-btn" onclick="pasteQuestion('Is there an active quality alert for the bracket?')">Is there an active quality alert for the bracket?</button>
       </div>
     </details>
 
     <details class="qw-category">
-      <summary>📋 Mapping Errors</summary>
+      <summary>📋 When No Match Is Found</summary>
       <div class="qw-grid">
-        <button class="qw-btn" onclick="pasteQuestion('What does mapping error payment id not found mean?')">What does mapping error payment id not found mean?</button>
-        <button class="qw-btn" onclick="pasteQuestion('Will the system retry automatically?')">Will the system retry automatically?</button>
-        <button class="qw-btn" onclick="pasteQuestion('Can I ignore this and continue?')">Can I ignore this and continue?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What happens if no document matches my question?')">What happens if no document matches my question?</button>
+        <button class="qw-btn" onclick="pasteQuestion('Will the assistant guess an answer if unsure?')">Will the assistant guess an answer if unsure?</button>
+        <button class="qw-btn" onclick="pasteQuestion('How is confidence determined?')">How is confidence determined?</button>
       </div>
     </details>
 
     <details class="qw-category">
-      <summary>📋 Follow-Up Chains</summary>
+      <summary>📋 Incidents &amp; Root Cause</summary>
       <div class="qw-grid">
-        <button class="qw-btn" onclick="pasteQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
-        <button class="qw-btn" onclick="pasteQuestion('Is reconciliation complete?')">Is reconciliation complete?</button>
-        <button class="qw-btn" onclick="pasteQuestion('Who is responsible?')">Who is responsible?</button>
-        <button class="qw-btn" onclick="pasteQuestion('What remains pending?')">What remains pending?</button>
+        <button class="qw-btn" onclick="pasteQuestion('Why did the bracket thickness change?')">Why did the bracket thickness change?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What caused the Line 2 bracket flex issue?')">What caused the Line 2 bracket flex issue?</button>
+        <button class="qw-btn" onclick="pasteQuestion('Is there a known issue with the Line 5 conveyor?')">Is there a known issue with the Line 5 conveyor?</button>
       </div>
     </details>
 
     <details class="qw-category">
-      <summary>📋 Lifecycle Reasoning</summary>
+      <summary>📋 Try Auto-SOP Generation</summary>
       <div class="qw-grid">
-        <button class="qw-btn" onclick="pasteQuestion('What stage comes after NEW?')">What stage comes after NEW?</button>
-        <button class="qw-btn" onclick="pasteQuestion('What stage comes after READY?')">What stage comes after READY?</button>
-        <button class="qw-btn" onclick="pasteQuestion('Is FULL RECONCILED a terminal state?')">Is FULL RECONCILED a terminal state?</button>
+        <button class="qw-btn" onclick="pasteQuestion('ECN-2291: bracket thickness increased from 2mm to 2.5mm on Model AX-500.')">ECN-2291: bracket thickness increased from 2mm to 2.5mm on Model AX-500.</button>
+        <button class="qw-btn" onclick="pasteQuestion('What is the torque specification for door hardware, model AX-500?')">What is the torque specification for door hardware, model AX-500?</button>
+        <button class="qw-btn" onclick="pasteQuestion('What caused the Line 2 stoppage in RCA-2026-014?')">What caused the Line 2 stoppage in RCA-2026-014?</button>
       </div>
     </details>
   </div>
@@ -94,7 +93,7 @@
            style="padding: clamp(10px, 2.5vw, 12px); max-width: 85%;">
         <p class="font-medium text-gray-700" style="font-size: clamp(12px, 3vw, 14px);">Welcome! 👋</p>
         <p class="text-gray-600 mt-1" style="font-size: clamp(11px, 2.5vw, 12px); line-height: 1.4;">
-          I can help you understand reconciliation statuses, errors, settlements, and more.
+          I can help you find SOPs, torque specs, maintenance schedules, and root cause reports.
           Tap <strong>❓</strong> above to browse example questions, or type your own below.
         </p>
       </div>
@@ -346,11 +345,6 @@
         }
         const data = await response.json();
         if (!data) { addMessage('No response received. Please try again.', 'assistant', false); return; }
-        console.log('=== CHAT RESPONSE DEBUG ===');
-        console.log('Response status:', data.status);
-        console.log('Full response object:', data);
-        console.log('Has formatted_html:', !!data.formatted_html);
-        console.log('=== END DEBUG ===');
         if (data.formatted_html && data.formatted_html.trim()) {
           addMessage(data.formatted_html, 'assistant', true);
         } else if (data.explanation && data.explanation.trim()) {

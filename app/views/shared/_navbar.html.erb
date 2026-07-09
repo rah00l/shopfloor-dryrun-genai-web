@@ -1,7 +1,7 @@
 <!-- RESPONSIVE NAVBAR -->
 <!-- Works at: Mobile (320px), Tablet (640px), Desktop (1024px+) -->
 
-<nav id="rp-navbar" style="width: 100%; background: linear-gradient(110deg, #1245a8 0%, #1a3baa 40%, #2d259e 75%, #3b1fa0 100%); color: #ffffff; position: relative; overflow: hidden; border-bottom: 4px solid #3b82f6; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+<nav id="rp-navbar" style="width: 100%; background: linear-gradient(110deg, #1e293b 0%, #334155 40%, #475569 75%, #1e293b 100%); color: #ffffff; position: relative; overflow: hidden; border-bottom: 4px solid #f59e0b; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
   <!-- Decorative background blobs -->
   <span aria-hidden="true" style="position:absolute;right:-40px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(74,222,188,0.18) 0%,rgba(74,222,188,0) 70%);pointer-events:none;"></span>
   <span aria-hidden="true" style="position:absolute;left:33%;top:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.07) 0%,rgba(255,255,255,0) 70%);pointer-events:none;"></span>
@@ -16,8 +16,8 @@
          onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
         <span id="rp-accent-bar" aria-hidden="true" style="width: 3px; height: 48px; border-radius: 2px; background: #2dd4bf; margin-right: 10px; flex-shrink: 0; display: block;"></span>
         <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0;">
-          <span id="rp-eyebrow" style="font-size: 10px; font-weight: 600; letter-spacing: 3px; color: #67e8f9; text-transform: uppercase; line-height: 1;">AI Payment Platform</span>
-          <span id="rp-title" style="font-size: 22px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px; line-height: 1.15;">ReconPilot AI</span>
+          <span id="rp-eyebrow" style="font-size: 10px; font-weight: 600; letter-spacing: 3px; color: #67e8f9; text-transform: uppercase; line-height: 1;">GenAI Manufacturing Assistant</span>
+          <span id="rp-title" style="font-size: 22px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px; line-height: 1.15;">ShopFloor GenAI Copilot</span>
           <span id="rp-tagline" style="font-size: 10px; color: #bfdbfe; font-weight: 400; line-height: 1; margin-top: 1px; white-space: nowrap;">Smart · Cloud-native · Real-time</span>
         </div>
       </a>
@@ -36,7 +36,7 @@
           style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: none; background: transparent; cursor: pointer; color: #fca5a5; font-size: 20px; transition: all 0.2s; flex-shrink: 0;"
           onmouseover="this.style.color='#ffffff'; this.style.backgroundColor='rgba(255,255,255,0.15)';"
           onmouseout="this.style.color='#fca5a5'; this.style.backgroundColor='transparent';"
-          onclick="window.location.href='/ReconPilot_RAG_Smoke_Test.xlsx'"
+          onclick="toggleNavQuestions()"
           title="Quick Questions for AI Assistant" aria-label="Quick Questions">❓</button>
 
         <!-- Guide -->
@@ -45,7 +45,7 @@
           onmouseover="this.style.color='#ffffff'; this.style.backgroundColor='rgba(255,255,255,0.15)';"
           onmouseout="this.style.color='#93c5fd'; this.style.backgroundColor='transparent';"
           onclick="toggleGuideModal()"
-          title="Payment Reconciliation Guide" aria-label="Payment Reconciliation Guide">ℹ️</button>
+          title="Manufacturing Knowledge Guide" aria-label="Manufacturing Knowledge Guide">ℹ️</button>
 
       </div>
     </div>
@@ -53,7 +53,6 @@
 </nav>
 
 <style>
-  /* Navbar responsive scaling — pure CSS media queries, no Tailwind dependency */
   @media (min-width: 1024px) {
     #rp-nav-inner      { padding: 32px 40px !important; }
     #rp-accent-bar     { width: 4px !important; height: 84px !important; margin-right: 16px !important; }
@@ -95,46 +94,44 @@
     </div>
     <p style="font-size: 12px; color: #6b7280; margin: 0 0 14px 0;">Click any question to paste it into the AI chat.</p>
 
-    <!-- 2-column grid — fits all desktop widths without scrolling -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
 
       <details class="nq-category">
-        <summary class="nq-summary">📋 Status Definitions</summary>
+        <summary class="nq-summary">📋 Specs &amp; Procedures</summary>
         <div class="nq-questions">
-          <button class="nq-btn" onclick="openChatWithQuestion('What does NEW mean?')">What does NEW mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does READY mean?')">What does READY mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does PROCESSING mean?')">What does PROCESSING mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does PARSED mean?')">What does PARSED mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does FULL RECONCILED mean?')">What does FULL RECONCILED mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What is the torque spec for the door hinge bracket?')">What is the torque spec for the door hinge bracket?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What are the steps to install the door hinge bracket?')">What are the steps to install the door hinge bracket?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('How often should the Station 4 fixture be recalibrated?')">How often should the Station 4 fixture be recalibrated?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What tools are needed for the tensioner inspection?')">What tools are needed for the tensioner inspection?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('How much belt deflection is acceptable during tensioner inspection?')">How much belt deflection is acceptable during tensioner inspection?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Is there an active quality alert for the bracket?')">Is there an active quality alert for the bracket?</button>
         </div>
       </details>
 
       <details class="nq-category">
-        <summary class="nq-summary">📋 Mapping Errors</summary>
+        <summary class="nq-summary">📋 When No Match Is Found</summary>
         <div class="nq-questions">
-          <button class="nq-btn" onclick="openChatWithQuestion('What does mapping error payment id not found mean?')">What does mapping error payment id not found mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('Will the system retry automatically?')">Will the system retry automatically?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('Can I ignore this and continue?')">Can I ignore this and continue?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What happens if no document matches my question?')">What happens if no document matches my question?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Will the assistant guess an answer if unsure?')">Will the assistant guess an answer if unsure?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('How is confidence determined?')">How is confidence determined?</button>
         </div>
       </details>
 
       <details class="nq-category">
-        <summary class="nq-summary">📋 Follow-Up Chains</summary>
+        <summary class="nq-summary">📋 Incidents &amp; Root Cause</summary>
         <div class="nq-questions">
-          <button class="nq-btn" onclick="openChatWithQuestion('Is reconciliation complete?')">Is reconciliation complete?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('Who is responsible?')">Who is responsible?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What remains pending?')">What remains pending?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Why did the bracket thickness change?')">Why did the bracket thickness change?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What caused the Line 2 bracket flex issue?')">What caused the Line 2 bracket flex issue?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Is there a known issue with the Line 5 conveyor?')">Is there a known issue with the Line 5 conveyor?</button>
         </div>
       </details>
 
       <details class="nq-category">
-        <summary class="nq-summary">📋 Lifecycle Reasoning</summary>
+        <summary class="nq-summary">📋 Try Auto-SOP Generation</summary>
         <div class="nq-questions">
-          <button class="nq-btn" onclick="openChatWithQuestion('What stage comes after NEW?')">What stage comes after NEW?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What stage comes after READY?')">What stage comes after READY?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('Is FULL RECONCILED a terminal state?')">Is FULL RECONCILED a terminal state?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('ECN-2291: bracket thickness increased from 2mm to 2.5mm on Model AX-500.')">ECN-2291: bracket thickness increased from 2mm to 2.5mm on Model AX-500.</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What is the torque specification for door hardware, model AX-500?')">What is the torque specification for door hardware, model AX-500?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What caused the Line 2 stoppage in RCA-2026-014?')">What caused the Line 2 stoppage in RCA-2026-014?</button>
         </div>
       </details>
 
@@ -160,44 +157,42 @@
     <div style="padding: 14px;">
       <p style="font-size: 12px; color: #6b7280; margin: 0 0 12px 0;">Tap any question to open the AI chat with it ready to send.</p>
 
-      <!-- Single column stacked — fits all mobile widths -->
       <details class="nq-category">
-        <summary class="nq-summary">📋 Status Definitions</summary>
+        <summary class="nq-summary">📋 Specs &amp; Procedures</summary>
         <div class="nq-questions">
-          <button class="nq-btn" onclick="openChatWithQuestion('What does NEW mean?')">What does NEW mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does READY mean?')">What does READY mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does PROCESSING mean?')">What does PROCESSING mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does PARSED mean?')">What does PARSED mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does FULL RECONCILED mean?')">What does FULL RECONCILED mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What is the torque spec for the door hinge bracket?')">What is the torque spec for the door hinge bracket?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What are the steps to install the door hinge bracket?')">What are the steps to install the door hinge bracket?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('How often should the Station 4 fixture be recalibrated?')">How often should the Station 4 fixture be recalibrated?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What tools are needed for the tensioner inspection?')">What tools are needed for the tensioner inspection?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('How much belt deflection is acceptable during tensioner inspection?')">How much belt deflection is acceptable during tensioner inspection?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Is there an active quality alert for the bracket?')">Is there an active quality alert for the bracket?</button>
         </div>
       </details>
 
       <details class="nq-category">
-        <summary class="nq-summary">📋 Mapping Errors</summary>
+        <summary class="nq-summary">📋 When No Match Is Found</summary>
         <div class="nq-questions">
-          <button class="nq-btn" onclick="openChatWithQuestion('What does mapping error payment id not found mean?')">What does mapping error payment id not found mean?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('Will the system retry automatically?')">Will the system retry automatically?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('Can I ignore this and continue?')">Can I ignore this and continue?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What happens if no document matches my question?')">What happens if no document matches my question?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Will the assistant guess an answer if unsure?')">Will the assistant guess an answer if unsure?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('How is confidence determined?')">How is confidence determined?</button>
         </div>
       </details>
 
       <details class="nq-category">
-        <summary class="nq-summary">📋 Follow-Up Chains</summary>
+        <summary class="nq-summary">📋 Incidents &amp; Root Cause</summary>
         <div class="nq-questions">
-          <button class="nq-btn" onclick="openChatWithQuestion('Is reconciliation complete?')">Is reconciliation complete?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('Who is responsible?')">Who is responsible?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What remains pending?')">What remains pending?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What does PARTIAL RECONCILED mean?')">What does PARTIAL RECONCILED mean?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Why did the bracket thickness change?')">Why did the bracket thickness change?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What caused the Line 2 bracket flex issue?')">What caused the Line 2 bracket flex issue?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('Is there a known issue with the Line 5 conveyor?')">Is there a known issue with the Line 5 conveyor?</button>
         </div>
       </details>
 
       <details class="nq-category">
-        <summary class="nq-summary">📋 Lifecycle Reasoning</summary>
+        <summary class="nq-summary">📋 Try Auto-SOP Generation</summary>
         <div class="nq-questions">
-          <button class="nq-btn" onclick="openChatWithQuestion('What stage comes after NEW?')">What stage comes after NEW?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('What stage comes after READY?')">What stage comes after READY?</button>
-          <button class="nq-btn" onclick="openChatWithQuestion('Is FULL RECONCILED a terminal state?')">Is FULL RECONCILED a terminal state?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('ECN-2291: bracket thickness increased from 2mm to 2.5mm on Model AX-500.')">ECN-2291: bracket thickness increased from 2mm to 2.5mm on Model AX-500.</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What is the torque specification for door hardware, model AX-500?')">What is the torque specification for door hardware, model AX-500?</button>
+          <button class="nq-btn" onclick="openChatWithQuestion('What caused the Line 2 stoppage in RCA-2026-014?')">What caused the Line 2 stoppage in RCA-2026-014?</button>
         </div>
       </details>
 
@@ -205,7 +200,7 @@
   </div>
 </div>
 
-<!-- PAYMENT RECONCILIATION GUIDE MODAL — clean card design, responsive -->
+<!-- MANUFACTURING KNOWLEDGE GUIDE MODAL — clean card design, responsive -->
 <div
   id="guide-modal"
   class="fixed inset-0 hidden items-center justify-center"
@@ -225,7 +220,6 @@
     border: 1px solid #e5e7eb;
   ">
 
-    <!-- Header — clean white with blue left accent -->
     <div style="
       padding: 18px 20px 14px 20px;
       border-bottom: 1px solid #f3f4f6;
@@ -241,8 +235,8 @@
       <div style="display: flex; align-items: center; gap: 10px;">
         <div style="width: 4px; height: 36px; background: #2563eb; border-radius: 4px; flex-shrink: 0;"></div>
         <div>
-          <p style="font-size: 15px; font-weight: 700; color: #111827; margin: 0; line-height: 1.3;">Payment Reconciliation Guide</p>
-          <p style="font-size: 11px; color: #6b7280; margin: 0; margin-top: 2px;">How the reconciliation process works</p>
+          <p style="font-size: 15px; font-weight: 700; color: #111827; margin: 0; line-height: 1.3;">Manufacturing Knowledge Guide</p>
+          <p style="font-size: 11px; color: #6b7280; margin: 0; margin-top: 2px;">How this assistant works</p>
         </div>
       </div>
       <button onclick="toggleGuideModal()" style="
@@ -259,88 +253,78 @@
       " title="Close">✕</button>
     </div>
 
-    <!-- Body -->
     <div style="padding: 16px 20px 20px 20px; overflow-x: hidden; box-sizing: border-box;">
 
-      <!-- Overview -->
       <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px 0;">Overview</p>
       <p style="font-size: 12px; color: #374151; line-height: 1.6; margin: 0 0 20px 0; padding: 10px 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #e5e7eb;">
-        The system processes uploaded payment files through a multi-stage pipeline — from initial validation through to full reconciliation against your affiliate network records.
+        The assistant retrieves relevant manufacturing documents — SOPs, specs, maintenance manuals, quality alerts, and incident reports — and answers your question using only that grounded context.
       </p>
 
-      <!-- Divider -->
       <div style="border-top: 1px solid #f3f4f6; margin-bottom: 16px;"></div>
 
-      <!-- Status Lifecycle -->
-      <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px 0;">Status Lifecycle</p>
+      <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px 0;">Document Types</p>
       <div style="display: flex; flex-direction: column; gap: 1px; margin-bottom: 20px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
 
         <div class="guide-row">
-          <span class="guide-pill" style="background:#eff6ff; color:#1e40af; border-color:#bfdbfe;">New</span>
-          <span class="guide-row-text">File uploaded and queued — awaiting validation.</span>
+          <span class="guide-pill" style="background:#eff6ff; color:#1e40af; border-color:#bfdbfe;">SOP</span>
+          <span class="guide-row-text">Step-by-step task instructions.</span>
         </div>
         <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
-          <span class="guide-pill" style="background:#eff6ff; color:#1e40af; border-color:#bfdbfe;">Ready</span>
-          <span class="guide-row-text">Validated and ready to be parsed by the engine.</span>
+          <span class="guide-pill" style="background:#eff6ff; color:#1e40af; border-color:#bfdbfe;">WI</span>
+          <span class="guide-row-text">Reference specs, e.g. torque values.</span>
         </div>
         <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
-          <span class="guide-pill" style="background:#fefce8; color:#854d0e; border-color:#fde68a;">Processing</span>
-          <span class="guide-row-text">Currently being parsed and matched against records.</span>
+          <span class="guide-pill" style="background:#fefce8; color:#854d0e; border-color:#fde68a;">MM</span>
+          <span class="guide-row-text">Equipment maintenance and troubleshooting.</span>
         </div>
         <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
-          <span class="guide-pill" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">Parsed</span>
-          <span class="guide-row-text">Parsed successfully — data extracted and viewable.</span>
+          <span class="guide-pill" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">QA</span>
+          <span class="guide-row-text">Short, urgent quality alert bulletins.</span>
         </div>
         <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
-          <span class="guide-pill" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">Partial Reconciled</span>
-          <span class="guide-row-text">Some payments matched — remaining records need review.</span>
+          <span class="guide-pill" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">ECN</span>
+          <span class="guide-row-text">Formal record of a spec or design change.</span>
         </div>
         <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
-          <span class="guide-pill" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">Full Reconciled</span>
-          <span class="guide-row-text">All payments matched — reconciliation complete.</span>
+          <span class="guide-pill" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">RCA</span>
+          <span class="guide-row-text">Incident investigation and root cause.</span>
         </div>
 
       </div>
 
-      <!-- Divider -->
       <div style="border-top: 1px solid #f3f4f6; margin-bottom: 16px;"></div>
 
-      <!-- Available Actions -->
-      <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px 0;">Available Actions</p>
+      <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px 0;">How to Use This Assistant</p>
       <div style="display: flex; flex-direction: column; gap: 1px; margin-bottom: 20px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
 
         <div class="guide-row">
           <span class="guide-dot" style="background:#16a34a;"></span>
-          <span class="guide-action-label" style="color:#166534;">Parse</span>
-          <span class="guide-row-text">Triggers parsing for NEW or READY files.</span>
+          <span class="guide-action-label" style="color:#166534;">Ask</span>
+          <span class="guide-row-text">Ask a natural-language question in the chat.</span>
         </div>
         <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
           <span class="guide-dot" style="background:#16a34a;"></span>
-          <span class="guide-action-label" style="color:#166534;">Display</span>
-          <span class="guide-row-text">View data for PARSED or PARTIAL RECONCILED files.</span>
+          <span class="guide-action-label" style="color:#166534;">Generate SOP</span>
+          <span class="guide-row-text">Paste a spec/ECN change to draft an updated procedure.</span>
         </div>
         <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
           <span class="guide-dot" style="background:#2563eb;"></span>
-          <span class="guide-action-label" style="color:#1e40af;">Summary</span>
-          <span class="guide-row-text">View reconciliation summary for FULL RECONCILED files.</span>
+          <span class="guide-action-label" style="color:#1e40af;">Citations</span>
+          <span class="guide-row-text">Every answer shows which document it came from.</span>
         </div>
         <div class="guide-row" style="border-top: 1px solid #f3f4f6;">
           <span class="guide-dot" style="background:#dc2626;"></span>
-          <span class="guide-action-label" style="color:#991b1b;">Remove</span>
-          <span class="guide-row-text">Delete the file record. Not available during PROCESSING.</span>
+          <span class="guide-action-label" style="color:#991b1b;">Confidence</span>
+          <span class="guide-row-text">Low-confidence answers are flagged as "not found" rather than guessed.</span>
         </div>
 
       </div>
 
-      <!-- Divider -->
       <div style="border-top: 1px solid #f3f4f6; margin-bottom: 16px;"></div>
 
-      <!-- Mapping Errors -->
-      <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px 0;">Mapping Errors</p>
+      <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px 0;">When No Match Is Found</p>
       <p style="font-size: 12px; color: #374151; line-height: 1.6; margin: 0; padding: 10px 12px; background: #fffbeb; border-radius: 8px; border: 1px solid #fde68a;">
-        If a payment ID cannot be matched to a network record, a mapping error is raised.
-        Check that the affiliate network ID in the file matches your registered records.
-        The system does not retry automatically — re-upload the corrected file to reprocess.
+        If no document in the knowledge base closely matches your question, the assistant says so directly rather than guessing. This is a deliberate confidence threshold, not a bug.
       </p>
 
     </div>
@@ -348,8 +332,6 @@
 </div>
 
 <script>
-  // ── Desktop ❓ dropdown ─────────────────────────────────
-  // ── Guide modal ────────────────────────────────────
   function toggleGuideModal() {
     const modal = document.getElementById('guide-modal');
     if (modal.classList.contains('hidden')) {
@@ -363,20 +345,16 @@
     }
   }
 
-  // ── Desktop ❓ dropdown ─────────────────────────────────
   function toggleNavQuestions() {
     const dropdown = document.getElementById('nav-questions-dropdown');
     const isHidden = dropdown.classList.contains('hidden');
     dropdown.classList.toggle('hidden', !isHidden);
   }
 
-  // Paste question into chat input, open widget if needed, close panels
   function openChatWithQuestion(text) {
-    // Close desktop dropdown
     const dropdown = document.getElementById('nav-questions-dropdown');
     if (dropdown) dropdown.classList.add('hidden');
 
-    // Close mobile modal
     const modal = document.getElementById('mobile-questions-modal');
     if (modal && !modal.classList.contains('hidden')) {
       modal.classList.add('hidden');
@@ -384,7 +362,6 @@
       document.body.style.overflow = 'auto';
     }
 
-    // Ensure chat widget is visible
     const chatWidget = document.getElementById('chat-widget');
     const chatMinimized = document.getElementById('chat-widget-minimized');
     if (chatWidget && (chatWidget.style.display === 'none' || chatWidget.style.display === '')) {
@@ -392,7 +369,6 @@
       chatWidget.style.display = 'flex';
     }
 
-    // Paste into input and focus
     const input = document.getElementById('chat-input');
     if (input) {
       input.value = text;
@@ -400,7 +376,6 @@
     }
   }
 
-  // ── Mobile FAB modal ───────────────────────────────────
   function toggleMobileQuestions() {
     const modal = document.getElementById('mobile-questions-modal');
     if (modal.classList.contains('hidden')) {
@@ -414,7 +389,6 @@
     }
   }
 
-  // Escape key closes both
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       const dropdown = document.getElementById('nav-questions-dropdown');
@@ -426,7 +400,6 @@
     }
   });
 
-  // Close dropdown when clicking outside
   document.addEventListener('click', function(e) {
     const dropdown = document.getElementById('nav-questions-dropdown');
     const btn = document.getElementById('nav-questions-btn');
@@ -448,7 +421,6 @@
   nav img { transition: filter 0.3s ease; }
   nav:hover img { filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15)); }
 
-  /* ── Collapsible category — matches chat widget .qw-category ── */
   details.nq-category {
     margin-bottom: 8px;
     background: white;
@@ -483,7 +455,6 @@
     padding: 8px 10px;
   }
 
-  /* ── Question chip — matches chat widget .qw-btn ── */
   .nq-btn {
     display: block;
     width: 100%;
@@ -501,7 +472,6 @@
   .nq-btn:hover  { background: #dbeafe; border-color: #93c5fd; }
   .nq-btn:active { background: #bfdbfe; transform: scale(0.99); }
 
-  /* ── Mobile modal slide-up ── */
   @media (max-width: 767px) {
     #mobile-questions-modal.flex > div {
       animation: slideUp 0.3s ease-out;
@@ -512,7 +482,6 @@
     }
   }
 
-  /* ── Guide modal — clean card rows ── */
   .guide-row {
     display: flex;
     align-items: center;
