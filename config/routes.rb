@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   root 'chat#index'  # or whatever your chat landing action will be — TBD in W2
 
   post '/chat/analyze', to: 'chat#analyze'
+
+  get '/sop', to: 'chat#sop_page'
+  post '/chat/generate-sop', to: 'chat#generate_sop'
 end

@@ -79,6 +79,11 @@
 <!-- Horizontal Color Bar -->
 <div class="w-full h-1 sm:h-2 shadow-md" style="background: linear-gradient(to right, #2563eb, #3b82f6, #1e40af);"></div>
 
+<div style="background: white; border-bottom: 1px solid #e5e7eb; padding: 0 16px; display: flex; gap: 4px;">
+  <a href="/" style="padding: 10px 14px; font-size: 13px; font-weight: 600; text-decoration: none; color: <%= current_page?('/') ? '#2563eb' : '#6b7280' %>; border-bottom: 2px solid <%= current_page?('/') ? '#2563eb' : 'transparent' %>;">💬 Chat Assistant</a>
+  <a href="/sop" style="padding: 10px 14px; font-size: 13px; font-weight: 600; text-decoration: none; color: <%= current_page?('/sop') ? '#2563eb' : '#6b7280' %>; border-bottom: 2px solid <%= current_page?('/sop') ? '#2563eb' : 'transparent' %>;">📝 Generate SOP</a>
+</div>
+
 <!-- DESKTOP QUESTIONS DROPDOWN — 2-column, no horizontal scroll -->
 <div
   id="nav-questions-dropdown"

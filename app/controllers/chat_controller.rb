@@ -8,6 +8,10 @@ class ChatController < ApplicationController
     # Layout automatically renders navbar and chat_widget
   end
 
+  def sop_page
+    # Renders app/views/chat/sop_page.html.erb
+  end
+
   def analyze
     question = params[:question]
     session_id = params[:session_id]
