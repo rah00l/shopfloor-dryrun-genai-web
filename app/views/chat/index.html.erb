@@ -1,66 +1,166 @@
-<div style="max-width: 640px; margin: 0 auto; padding: clamp(40px, 8vw, 80px) clamp(16px, 4vw, 24px); text-align: center;">
+<div style="max-width: 980px; margin: 0 auto; padding: clamp(20px, 4vw, 32px) clamp(16px, 4vw, 24px);">
 
-  <div style="width: 56px; height: 56px; border-radius: 14px; background: #1e293b; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 24px;">
-    💬
-  </div>
-
-  <h1 style="font-size: clamp(22px, 5vw, 28px); font-weight: 700; color: #111827; margin: 0 0 10px 0;">
-    What do you need on the floor?
-  </h1>
-  <p style="font-size: 13px; color: #6b7280; margin: 0 0 28px 0; line-height: 1.5;">
-    Ask about torque specs, SOPs, maintenance schedules, or root cause reports — grounded in your current documentation.
-  </p>
-
-  <div style="display: flex; flex-direction: column; gap: 10px; text-align: left;">
-
-    <button onclick="openChatWithQuestion('What is the torque spec for the door hinge bracket?')"
-      style="display: flex; align-items: center; gap: 10px; background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #111827; cursor: pointer; text-align: left; transition: border-color 0.15s, box-shadow 0.15s;"
-      onmouseover="this.style.borderColor='#94a3b8'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';"
-      onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none';">
-      <span>⚙️</span> What's the torque spec for the door hinge bracket?
-    </button>
-
-    <button onclick="openChatWithQuestion('What are the steps to install the door hinge bracket?')"
-      style="display: flex; align-items: center; gap: 10px; background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #111827; cursor: pointer; text-align: left; transition: border-color 0.15s, box-shadow 0.15s;"
-      onmouseover="this.style.borderColor='#94a3b8'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';"
-      onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none';">
-      <span>📄</span> Show me the current SOP for Station 4 bracket installation
-    </button>
-
-    <button onclick="openChatWithQuestion('How often should the Station 4 fixture be recalibrated?')"
-      style="display: flex; align-items: center; gap: 10px; background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #111827; cursor: pointer; text-align: left; transition: border-color 0.15s, box-shadow 0.15s;"
-      onmouseover="this.style.borderColor='#94a3b8'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';"
-      onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none';">
-      <span>🔧</span> When is the next scheduled maintenance for Station 4?
-    </button>
-
-    <button onclick="openChatWithQuestion('What caused the Line 2 bracket flex issue?')"
-      style="display: flex; align-items: center; gap: 10px; background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #111827; cursor: pointer; text-align: left; transition: border-color 0.15s, box-shadow 0.15s;"
-      onmouseover="this.style.borderColor='#94a3b8'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';"
-      onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none';">
-      <span>⚠️</span> Root cause report for last week's Station 4 stoppage
-    </button>
-
-  </div>
-
-  <p style="font-size: 11px; color: #9ca3af; margin: 24px 0 0 0;">
-    Tap a question above, or type your own in the chat panel on the right.
-  </p>
-
-  <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
-    <p style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px 0;">
-      Sample documents in the knowledge base
-    </p>
-    <div style="display: flex; flex-direction: column; gap: 5px;">
-      <a href="/documents/01-SOP-3.1-bracket-installation.pdf" download style="font-size: 12px; color: #1d4ed8; text-decoration: none;">📄 Bracket Installation Procedure (SOP)</a>
-      <a href="/documents/02-WI-4.2-torque-specifications.pdf" download style="font-size: 12px; color: #1d4ed8; text-decoration: none;">📄 Torque Specifications Reference</a>
-      <a href="/documents/03-MM-station4-fixture-maintenance.pdf" download style="font-size: 12px; color: #1d4ed8; text-decoration: none;">📄 Fixture Maintenance Schedule</a>
-      <a href="/documents/04-QA-2026-009-quality-alert.pdf" download style="font-size: 12px; color: #1d4ed8; text-decoration: none;">📄 Bracket Flex Quality Alert</a>
-      <a href="/documents/05-ECN-2291-bracket-thickness.pdf" download style="font-size: 12px; color: #1d4ed8; text-decoration: none;">📄 Bracket Thickness Change Notice</a>
-      <a href="/documents/06-RCA-2026-014-bracket-flex.pdf" download style="font-size: 12px; color: #1d4ed8; text-decoration: none;">📄 Root Cause Report — Bracket Flex</a>
-      <a href="/documents/07-SOP-7.4-conveyor-tensioner-inspection.pdf" download style="font-size: 12px; color: #1d4ed8; text-decoration: none;">📄 Conveyor Tensioner Inspection Procedure</a>
-      <a href="/documents/08-QA-2026-021-conveyor-slippage.pdf" download style="font-size: 12px; color: #1d4ed8; text-decoration: none;">📄 Conveyor Slippage Quality Alert</a>
+  <!-- Compact header -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <div style="width: 44px; height: 44px; border-radius: 12px; background: #1e293b; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; font-size: 20px;">
+      💬
     </div>
+    <h1 style="font-size: clamp(19px, 4vw, 24px); font-weight: 700; color: #111827; margin: 0 0 6px 0;">
+      What do you need on the floor?
+    </h1>
+    <p style="font-size: 12.5px; color: #6b7280; margin: 0; line-height: 1.5;">
+      Ask about torque specs, SOPs, maintenance schedules, or root cause reports — grounded in your current documentation.
+    </p>
   </div>
 
+  <!-- Two-column: questions left, documents right -->
+  <div style="display: grid; grid-template-columns: 1fr; gap: 20px;" class="lg:grid-cols-2">
+
+    <!-- Left: Try Asking -->
+    <div>
+      <p style="font-size: 10.5px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px 0;">
+        Try asking
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+
+        <button onclick="openChatWithQuestion('What is the torque spec for the door hinge bracket?')"
+          style="display: flex; align-items: center; gap: 9px; background: white; border: 1px solid #e5e7eb; border-radius: 9px; padding: 11px 13px; font-size: 12.5px; color: #111827; cursor: pointer; text-align: left; transition: border-color 0.15s, box-shadow 0.15s;"
+          onmouseover="this.style.borderColor='#94a3b8'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';"
+          onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none';">
+          <span>⚙️</span> What's the torque spec for the door hinge bracket?
+        </button>
+
+        <button onclick="openChatWithQuestion('What are the steps to install the door hinge bracket?')"
+          style="display: flex; align-items: center; gap: 9px; background: white; border: 1px solid #e5e7eb; border-radius: 9px; padding: 11px 13px; font-size: 12.5px; color: #111827; cursor: pointer; text-align: left; transition: border-color 0.15s, box-shadow 0.15s;"
+          onmouseover="this.style.borderColor='#94a3b8'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';"
+          onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none';">
+          <span>📄</span> Show me the current SOP for Station 4 bracket installation
+        </button>
+
+        <button onclick="openChatWithQuestion('How often should the Station 4 fixture be recalibrated?')"
+          style="display: flex; align-items: center; gap: 9px; background: white; border: 1px solid #e5e7eb; border-radius: 9px; padding: 11px 13px; font-size: 12.5px; color: #111827; cursor: pointer; text-align: left; transition: border-color 0.15s, box-shadow 0.15s;"
+          onmouseover="this.style.borderColor='#94a3b8'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';"
+          onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none';">
+          <span>🔧</span> When is the next scheduled maintenance for Station 4?
+        </button>
+
+        <button onclick="openChatWithQuestion('What caused the Line 2 bracket flex issue?')"
+          style="display: flex; align-items: center; gap: 9px; background: white; border: 1px solid #e5e7eb; border-radius: 9px; padding: 11px 13px; font-size: 12.5px; color: #111827; cursor: pointer; text-align: left; transition: border-color 0.15s, box-shadow 0.15s;"
+          onmouseover="this.style.borderColor='#94a3b8'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';"
+          onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none';">
+          <span>⚠️</span> Root cause report for last week's Station 4 stoppage
+        </button>
+
+        <button onclick="openChatWithQuestion('Why did the bracket thickness change?')"
+          style="display: flex; align-items: center; gap: 9px; background: white; border: 1px solid #e5e7eb; border-radius: 9px; padding: 11px 13px; font-size: 12.5px; color: #111827; cursor: pointer; text-align: left; transition: border-color 0.15s, box-shadow 0.15s;"
+          onmouseover="this.style.borderColor='#94a3b8'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';"
+          onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none';">
+          <span>📝</span> Why did the bracket thickness change?
+        </button>
+
+      </div>
+      <p style="font-size: 10.5px; color: #9ca3af; margin: 10px 0 0 0;">
+        Tap a question, or type your own in the chat panel.
+      </p>
+    </div>
+
+    <!-- Right: Sample Documents (preview, not forced download) -->
+    <div>
+      <p style="font-size: 10.5px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px 0;">
+        Sample documents — click to preview
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+
+        <a href="/documents/01-SOP-3.1-bracket-installation.pdf" target="_blank" rel="noopener"
+          style="display: flex; align-items: center; gap: 9px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 8px 11px; text-decoration: none; transition: box-shadow 0.15s;"
+          onmouseover="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.06)';" onmouseout="this.style.boxShadow='none';">
+          <span style="font-size: 14px;">📋</span>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 11px; font-weight: 600; color: #1e40af;">Bracket Installation Procedure</div>
+            <div style="font-size: 9.5px; color: #6b7280;">SOP</div>
+          </div>
+          <span style="font-size: 11px; color: #1e40af;">↗</span>
+        </a>
+
+        <a href="/documents/02-WI-4.2-torque-specifications.pdf" target="_blank" rel="noopener"
+          style="display: flex; align-items: center; gap: 9px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 8px 11px; text-decoration: none; transition: box-shadow 0.15s;"
+          onmouseover="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.06)';" onmouseout="this.style.boxShadow='none';">
+          <span style="font-size: 14px;">📐</span>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 11px; font-weight: 600; color: #1e40af;">Torque Specifications Reference</div>
+            <div style="font-size: 9.5px; color: #6b7280;">Work Instruction</div>
+          </div>
+          <span style="font-size: 11px; color: #1e40af;">↗</span>
+        </a>
+
+        <a href="/documents/03-MM-station4-fixture-maintenance.pdf" target="_blank" rel="noopener"
+          style="display: flex; align-items: center; gap: 9px; background: #fefce8; border: 1px solid #fde68a; border-radius: 8px; padding: 8px 11px; text-decoration: none; transition: box-shadow 0.15s;"
+          onmouseover="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.06)';" onmouseout="this.style.boxShadow='none';">
+          <span style="font-size: 14px;">🔧</span>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 11px; font-weight: 600; color: #854d0e;">Fixture Maintenance Schedule</div>
+            <div style="font-size: 9.5px; color: #6b7280;">Maintenance Manual</div>
+          </div>
+          <span style="font-size: 11px; color: #854d0e;">↗</span>
+        </a>
+
+        <a href="/documents/04-QA-2026-009-quality-alert.pdf" target="_blank" rel="noopener"
+          style="display: flex; align-items: center; gap: 9px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 8px 11px; text-decoration: none; transition: box-shadow 0.15s;"
+          onmouseover="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.06)';" onmouseout="this.style.boxShadow='none';">
+          <span style="font-size: 14px;">⚠️</span>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 11px; font-weight: 600; color: #166534;">Bracket Flex Quality Alert</div>
+            <div style="font-size: 9.5px; color: #6b7280;">Quality Alert</div>
+          </div>
+          <span style="font-size: 11px; color: #166534;">↗</span>
+        </a>
+
+        <a href="/documents/05-ECN-2291-bracket-thickness.pdf" target="_blank" rel="noopener"
+          style="display: flex; align-items: center; gap: 9px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 8px 11px; text-decoration: none; transition: box-shadow 0.15s;"
+          onmouseover="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.06)';" onmouseout="this.style.boxShadow='none';">
+          <span style="font-size: 14px;">📝</span>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 11px; font-weight: 600; color: #166534;">Bracket Thickness Change Notice</div>
+            <div style="font-size: 9.5px; color: #6b7280;">Engineering Change</div>
+          </div>
+          <span style="font-size: 11px; color: #166534;">↗</span>
+        </a>
+
+        <a href="/documents/06-RCA-2026-014-bracket-flex.pdf" target="_blank" rel="noopener"
+          style="display: flex; align-items: center; gap: 9px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 8px 11px; text-decoration: none; transition: box-shadow 0.15s;"
+          onmouseover="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.06)';" onmouseout="this.style.boxShadow='none';">
+          <span style="font-size: 14px;">🔍</span>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 11px; font-weight: 600; color: #166534;">Root Cause Report — Bracket Flex</div>
+            <div style="font-size: 9.5px; color: #6b7280;">Root Cause Analysis</div>
+          </div>
+          <span style="font-size: 11px; color: #166534;">↗</span>
+        </a>
+
+        <a href="/documents/07-SOP-7.4-conveyor-tensioner-inspection.pdf" target="_blank" rel="noopener"
+          style="display: flex; align-items: center; gap: 9px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 8px 11px; text-decoration: none; transition: box-shadow 0.15s;"
+          onmouseover="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.06)';" onmouseout="this.style.boxShadow='none';">
+          <span style="font-size: 14px;">📋</span>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 11px; font-weight: 600; color: #1e40af;">Conveyor Tensioner Inspection</div>
+            <div style="font-size: 9.5px; color: #6b7280;">SOP</div>
+          </div>
+          <span style="font-size: 11px; color: #1e40af;">↗</span>
+        </a>
+
+        <a href="/documents/08-QA-2026-021-conveyor-slippage.pdf" target="_blank" rel="noopener"
+          style="display: flex; align-items: center; gap: 9px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 8px 11px; text-decoration: none; transition: box-shadow 0.15s;"
+          onmouseover="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.06)';" onmouseout="this.style.boxShadow='none';">
+          <span style="font-size: 14px;">⚠️</span>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 11px; font-weight: 600; color: #166534;">Conveyor Slippage Quality Alert</div>
+            <div style="font-size: 9.5px; color: #6b7280;">Quality Alert</div>
+          </div>
+          <span style="font-size: 11px; color: #166534;">↗</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
 </div>

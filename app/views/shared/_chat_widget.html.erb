@@ -222,12 +222,45 @@
     return { pct: pct, label: label };
   }
 
+  // Overall answer confidence, derived from the best (lowest) retrieval
+  // distance among the returned sources. This is deliverable 4 —
+  // "traceability + confidence scoring" — made visible in the UI.
+  function overallConfidence(sources) {
+    if (!sources || sources.length === 0) return null;
+    const best = Math.min.apply(null, sources.map(function(s) { return s.distance; }));
+    if (best < 0.35) {
+      return { label: 'High confidence', color: '#166534', bg: '#f0fdf4', border: '#bbf7d0' };
+    } else if (best < 0.55) {
+      return { label: 'Medium confidence', color: '#854d0e', bg: '#fefce8', border: '#fde68a' };
+    } else {
+      return { label: 'Low confidence', color: '#92400e', bg: '#fff7ed', border: '#fed7aa' };
+    }
+  }
+
+  // RAG (fresh retrieval) vs CAG (served from cache) — deliverable 1,
+  // made visible per-answer instead of only living in the architecture diagram.
+  function retrievalModeBadge(fromCache) {
+    if (fromCache) {
+      return '<span style="display:inline-flex;align-items:center;gap:3px;background:#fefce8;color:#854d0e;border:1px solid #fde68a;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:10px;">⚡ CAG cache</span>';
+    }
+    return '<span style="display:inline-flex;align-items:center;gap:3px;background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:10px;">🔍 RAG retrieval</span>';
+  }
+
   function renderAnswerWithReferences(data) {
     const hasSources = data.sources && data.sources.length > 0;
+    const confidence = overallConfidence(data.sources);
 
-    const badge = hasSources
-      ? '<div style="display:inline-block;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;font-size:10px;font-weight:600;padding:2px 8px;border-radius:12px;margin-bottom:8px;">✓ Cited from ' + data.sources.length + ' source' + (data.sources.length > 1 ? 's' : '') + '</div>'
-      : '<div style="display:inline-block;background:#fffbeb;color:#92400e;border:1px solid #fde68a;font-size:10px;font-weight:600;padding:2px 8px;border-radius:12px;margin-bottom:8px;">⚠ Not found in knowledge base</div>';
+    const citedBadge = hasSources
+      ? '<span style="display:inline-flex;align-items:center;gap:3px;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:10px;">✓ Cited</span>'
+      : '<span style="display:inline-flex;align-items:center;gap:3px;background:#fffbeb;color:#92400e;border:1px solid #fde68a;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:10px;">⚠ Not found</span>';
+
+    const modeBadge = retrievalModeBadge(data.from_cache);
+
+    const confidenceBadge = confidence
+      ? '<span style="display:inline-flex;align-items:center;gap:3px;background:' + confidence.bg + ';color:' + confidence.color + ';border:1px solid ' + confidence.border + ';font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:10px;">' + confidence.label + '</span>'
+      : '';
+
+    const badgeRow = '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;">' + citedBadge + modeBadge + confidenceBadge + '</div>';
 
     const answerText = escapeHtml(data.explanation || '');
 
@@ -252,7 +285,7 @@
       '</details>';
     }
 
-    return badge + '<div style="font-size:13px;line-height:1.5;">' + answerText + '</div>' + refsHtml;
+    return badgeRow + '<div style="font-size:13px;line-height:1.5;">' + answerText + '</div>' + refsHtml;
   }
 
   // ============================================
