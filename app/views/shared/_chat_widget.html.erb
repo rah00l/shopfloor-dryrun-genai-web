@@ -199,6 +199,26 @@
     return `session_${timestamp}_${random}`;
   }
 
+  function getCsrfTokenGlobal() {
+    return document.querySelector('meta[name="csrf-token"]')?.content || '';
+  }
+
+  // ============================================
+  // FEEDBACK LOOP — operator flags an answer as accurate or not
+  // ============================================
+
+  window.submitFeedback = function(elementId, wasAccurate, answerText) {
+    const el = document.getElementById(elementId);
+    if (el) {
+      el.innerHTML = '<span style="font-size:10px;color:#166534;">&#10003; Thanks &mdash; feedback recorded</span>';
+    }
+    fetch('/chat/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCsrfTokenGlobal() },
+      body: JSON.stringify({ question: answerText, rating: wasAccurate ? 'up' : 'down' })
+    }).catch(function(e) { console.error('Feedback failed:', e); });
+  };
+
   // ============================================
   // REFERENCE CARDS — doc type, section, match strength
   // ============================================
@@ -285,7 +305,15 @@
       '</details>';
     }
 
-    return badgeRow + '<div style="font-size:13px;line-height:1.5;">' + answerText + '</div>' + refsHtml;
+    const feedbackId = 'fb-' + Math.random().toString(36).substr(2, 9);
+    const safeAnswerJson = JSON.stringify(data.explanation || '');
+    const feedbackHtml = '<div id="' + feedbackId + '" style="margin-top:8px;display:flex;align-items:center;gap:8px;">' +
+      '<span style="font-size:10px;color:#9ca3af;">Was this accurate?</span>' +
+      '<button onclick=\'submitFeedback("' + feedbackId + '", true, ' + safeAnswerJson + ')\' style="background:none;border:1px solid #e5e7eb;border-radius:5px;padding:2px 7px;cursor:pointer;font-size:11px;">👍</button>' +
+      '<button onclick=\'submitFeedback("' + feedbackId + '", false, ' + safeAnswerJson + ')\' style="background:none;border:1px solid #e5e7eb;border-radius:5px;padding:2px 7px;cursor:pointer;font-size:11px;">👎</button>' +
+    '</div>';
+
+    return badgeRow + '<div style="font-size:13px;line-height:1.5;">' + answerText + '</div>' + refsHtml + feedbackHtml;
   }
 
   // ============================================
@@ -455,10 +483,6 @@
 
   /* ============================================
      RESPONSIVE LAYOUT
-     Mobile  (< 640px):   Bottom sheet, 68vh
-     Tablet  (640-767px): Bottom sheet, 60vh
-     Tablet+ (768-1023px): Floating panel, bottom-right
-     Desktop (1024px+):   Fixed sidebar
      ============================================ */
 
   #chat-widget {

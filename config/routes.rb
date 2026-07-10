@@ -8,4 +8,6 @@ Rails.application.routes.draw do
 
   get '/sop', to: 'chat#sop_page'
   post '/chat/generate-sop', to: 'chat#generate_sop'
+
+  post '/chat/feedback', to: 'chat#feedback'
 end

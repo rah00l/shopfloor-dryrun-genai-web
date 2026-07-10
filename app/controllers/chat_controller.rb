@@ -1,7 +1,6 @@
 class ChatController < ApplicationController
   include ChatFormatterHelper
-
-  skip_before_action :verify_authenticity_token, only: [:analyze, :generate_sop]
+  skip_before_action :verify_authenticity_token, only: [:analyze, :generate_sop, :feedback]
 
   def index
     # Renders app/views/chat/index.html.erb
@@ -66,6 +65,19 @@ class ChatController < ApplicationController
       reference_docs: [],
       grounded: false
     }, status: :internal_server_error
+  end
+
+  # Lightweight feedback logging — an operator can flag an answer as
+  # accurate or not. This is the governance/trust loop referenced in
+  # the "how do we know this is trustworthy" answer for the jury.
+  def feedback
+    Rails.logger.info(
+      "FEEDBACK: rating=#{params[:rating]} session=#{params[:session_id]} question=#{params[:question]}"
+    )
+    render json: { status: "ok" }
+  rescue StandardError => e
+    Rails.logger.error("ChatController#feedback Error: #{e.message}")
+    render json: { status: "error" }, status: :internal_server_error
   end
 
   private
