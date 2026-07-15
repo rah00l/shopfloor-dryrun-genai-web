@@ -63,10 +63,10 @@ Built and deployed in **24 hours** as part of GOH-UC-020 (GenAI-Powered Intellig
 ## Architecture
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                   Rails 7 Application                         │
-│                    (Puma, port 3000)                          │
-│                                                               │
+┌─────────────────────────────────────────────────────────────┐
+│                   Rails 7 Application                       │
+│                    (Puma, port 3000)                        │
+│                                                             │
 │  ┌──────────────────────────────────────────────────────────┤
 │  │  Routing (config/routes.rb)                              │
 │  │  - GET  / → chat#index (main page)                       │
@@ -76,18 +76,18 @@ Built and deployed in **24 hours** as part of GOH-UC-020 (GenAI-Powered Intellig
 │  └──────────────────────────────────────────────────────────┤
 │                          │
 │                          ▼
-│  ┌──────────────────────────────────────────────────────────┤
+│  ┌───────────────────────────────────────────────────────── ┤
 │  │  Controllers (app/controllers/)                          │
 │  │                                                          │
-│  │  ┌────────────────┐  ┌──────────────────────────────┐  │
-│  │  │  ChatController │  │ ApplicationController        │  │
-│  │  │                │  │ - Error handling              │  │
-│  │  │ - index        │  │ - CORS config                 │  │
-│  │  │ - ask          │  │ - Request logging             │  │
-│  │  │ - generate_sop │  │                              │  │
-│  │  │ - feedback     │  │                              │  │
-│  │  │                │  │                              │  │
-│  │  └────────────────┘  └──────────────────────────────┘  │
+│  │  ┌────────────────┐  ┌──────────────────────────────┐    │
+│  │  │  ChatController│  │ ApplicationController        │    │
+│  │  │                │  │ - Error handling             │    │
+│  │  │ - index        │  │ - CORS config                │    │
+│  │  │ - ask          │  │ - Request logging            │    │
+│  │  │ - generate_sop │  │                              │    │
+│  │  │ - feedback     │  │                              │    │
+│  │  │                │  │                              │    │
+│  │  └────────────────┘  └──────────────────────────────┘    │
 │  └──────────────────────────────────────────────────────────┤
 │                          │
 │                          ▼
@@ -103,27 +103,27 @@ Built and deployed in **24 hours** as part of GOH-UC-020 (GenAI-Powered Intellig
 │  ┌──────────────────────────────────────────────────────────┤
 │  │  Views & Partials (app/views/)                           │
 │  │                                                          │
-│  │  ├── chat/index.html.erb         Main page              │
+│  │  ├── chat/index.html.erb         Main page               │
 │  │  ├── chat/sop_page.html.erb      SOP generator           │
 │  │  ├── shared/_chat_widget.html    Chat interface          │
 │  │  ├── shared/_navbar.html         Header/nav              │
 │  │  └── shared/_questions_widget    Sample questions        │
 │  │                                                          │
 │  │  Styling:                                                │
-│  │  ├── app/assets/stylesheets/globals.css                 │
-│  │  ├── app/assets/stylesheets/application.css             │
-│  │  └── app/assets/stylesheets/application.tailwind.css    │
+│  │  ├── app/assets/stylesheets/globals.css                  │
+│  │  ├── app/assets/stylesheets/application.css              │
+│  │  └── app/assets/stylesheets/application.tailwind.css     │
 │  └──────────────────────────────────────────────────────────┤
 │
-└──────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────┘
          │
          │ HTTP/REST
          │ (ENGINE_URL env var)
          │
          ▼
     ┌─────────────────────────────────────┐
-    │  ShopFloor GenAI Engine              │
-    │  (FastAPI, Python, separate deploy)│
+    │  ShopFloor GenAI Engine             │
+    │  (FastAPI, Python, separate deploy) │
     │                                     │
     │  POST /analyze → RAG Q&A            │
     │  POST /generate-sop → SOP gen       │
